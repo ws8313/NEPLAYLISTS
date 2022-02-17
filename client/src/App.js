@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import './App.css';
-import Edit from './components/Pages/Edit/Edit';
-import Home from './components/Pages/Home/Home';
+import Edit from './page/Edit/Edit';
+import Home from './page/HomePage/Home';
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route exact path='/' element = { <Home /> }/>
         <Route exact path='/edit' component = { <Edit />}/>
-        </Routes>
+      </Routes>
       </BrowserRouter>
     </div>
   );

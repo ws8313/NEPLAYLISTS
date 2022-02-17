@@ -5,7 +5,7 @@ import Playlist from './Playlist'
 export default function Home() {
   return (
     <div>
-      <canvas width="150" height="150"></canvas>
+      {/* <Room /> */}
       <Lyrics />
       <Playlist/>
     </div>
