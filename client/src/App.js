@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import './App.css';
-import Edit from './page/Edit/Edit';
-import Home from './page/HomePage/Home';
-
+import Edit from './page/edit/Edit';
+import Home from './page/homePage/Home';
+import store from './redux/configureStore';
 
 function App() {
   return (
@@ -19,3 +19,4 @@ function App() {
 }
 
 export default App;
+
