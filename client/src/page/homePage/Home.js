@@ -14,10 +14,10 @@ const GridContainer =  styled.div`
   display:grid;
   grid-template-columns:  1fr 2fr 1fr;
   grid-template-rows: 1fr 10fr 10fr ;
-  grid-template-areas: 
-  "header header header"
-  "a main lyrics"
-  "a main playlist";
+  grid-template-areas:
+    "header header header"
+    "a main lyrics"
+    "a main playlist";
 `
 
 export default function Home() {
