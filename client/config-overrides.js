@@ -1,29 +1,18 @@
-// module.exports = {
-//   webpack: webpackConfig => {
-//     // 스크립트 로더를 가져와서
-//     const loader = webpackConfig.module.rules[2].oneOf[1];
+const { useBabelRc, override, addWebpackModuleRule } = require("customize-cra");
 
-//     loader.rules = [
-//       // 기존 로더에다가
-//       {
-//         loader: loader.loader,
-//         options: {
-//           presets: [...loader.options.presets]
-//         }
-//       },
-//       // linaria 로더 더하기
-//       {
-//         loader: 'linaria/loader',
-//         options: {
-//           cacheDirectory: 'src/.linaria_cache',
-//           sourceMap: process.env.NODE_ENV !== 'production',
-//           babelOptions: {
-//             presets: loader.options.presets
-//           }
-//         }
-//       }
-//     ];
-
-//     return webpackConfig;
-//   }
-// };
+module.exports = override(
+  useBabelRc(),
+  addWebpackModuleRule({
+    test: /\.(js|jsx)$/,
+    use: [
+      { loader: "babel-loader" },
+      {
+        loader: "@linaria/webpack-loader",
+        options: {
+          cacheDirectory: "src/.linaria_cache",
+          sourceMap: process.env.NODE_ENV !== "production",
+        },
+      },
+    ],
+  })
+);

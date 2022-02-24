@@ -1,11 +1,12 @@
 import React from 'react'
+
 import Lyrics from './Lyrics'
 import Playlist from './Playlist'
-import styled  from 'styled-components';
 import Room from './Room';
 
+import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
-import  {deleteMusic}  from '../../redux/module/playlist'
+import  { deleteMusic }  from '../../redux/actions/playlist'
 
 const GridContainer =  styled.div`
   height:100vh;
