@@ -5,17 +5,6 @@ import styled from 'styled-components'
 // 위치도 바꿀수 있어야 한다.
 // Drag n drop 형식 // 버튼을 누르면, 상or 하로 이동하는 형식
 
-const MusicCard = (music) => {
-  return (
-    <li>
-      <img src = {music.image} />
-      <div>
-      <h3>{music.title}</h3>
-      {music.musician}
-      </div>
-    </li>
-  )
-}
 const MusicContainer = styled.ul`
 ::-webkit-scrollbar { width: 5.2px; } /* 스크롤 바 */
 ::-webkit-scrollbar-track { background-color:black; } /* 스크롤 바 밑의 배경 */
@@ -59,14 +48,31 @@ const MusicContainer = styled.ul`
   }
 `
 
+const MusicCard = (music, index, deleteMusic) => {
+  const handleDelete = (index) => {
+    const deleteConfirm = window.confirm('정말로 플레이리스트에서 삭제하시겠습니까? 삭제 시 편집한 해당 곡의 Room 정보는 초기화 됩니다.');
+    if (deleteConfirm) {
+      console.log(index)
+      deleteMusic(index)
+    }
+  }
+
+  return (
+    <li>
+      <img src = {music.albumImage} />
+      <div>
+        <h3>{music.title}</h3>
+        {music.musician}
+        <button onClick={()=>handleDelete(index)}>x</button>
+      </div>
+    </li>
+  )
+}
 
 
+export default function Playlist({playlist, deleteMusic}) {  
 
-export default function Playlist() {
-  const testSrc = 'https://i.pinimg.com/236x/8e/47/d0/8e47d0bd73dafa1d339cb2b2b13c2b7e.jpg'  
-  const playList = [{title: '매우긴노래제목1매우긴노래제목1매우긴노래제목1', image: testSrc, musician:'아이유'},{title: '노래2', image: testSrc, musician:'아이유'},{title: '매우긴노래제목1매우긴노래제목1매우긴노래제목1', image: testSrc, musician:'아이유'},{title: '노래2', image: testSrc, musician:'아이유'},{title: '매우긴노래제목1매우긴노래제목1매우긴노래제목1', image: testSrc, musician:'아이유'},{title: '노래2', image: testSrc, musician:'아이유'},{title: '매우긴노래제목1매우긴노래제목1매우긴노래제목1', image: testSrc, musician:'아이유'},{title: '노래2', image: testSrc, musician:'아이유'}] // redux에 저장된 유저정보에서 가져올 것임
-  const playLists = playList.map((music) => MusicCard(music) )
-  
+  const playLists = playlist.map((music,index) => MusicCard(music, index, deleteMusic))
   return (
     <MusicContainer >
         { playLists }

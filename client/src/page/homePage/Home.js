@@ -3,11 +3,13 @@ import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import styled  from 'styled-components';
 import Room from './Room';
-import img from './pexels-nout-gons-248159.jpg'
+
+import { useSelector, useDispatch } from 'react-redux';
+import  {deleteMusic}  from '../../redux/module/playlist'
 
 const GridContainer =  styled.div`
   height:100vh;
-  background-image : url(${img});
+
   background-size : cover;
   background-repeat: no-repeat;
   
@@ -21,12 +23,35 @@ const GridContainer =  styled.div`
 `
 
 export default function Home() {
+  // title, image, musician, lyrics, elements
+  const {playlist, nowPlaying } = useSelector(state => {
+    console.log('state', state)
+    return {
+    playlist : state.playlist.playlist,
+    nowPlaying : state.playlist.nowPlaying,
+  }})
+  
+  console.log('nowPlaying', nowPlaying)
+  
+  const {title, image, musician,lyrics,elements, bgImg} = {
+    title : playlist[nowPlaying].title,
+    image : playlist[nowPlaying].albumImage,
+    musician : playlist[nowPlaying].musician,    
+    lyrics : playlist[nowPlaying].lyrics,
+    elements : playlist[nowPlaying].elements,
+    bgImg : playlist[nowPlaying].bgImg
+  }
+
+  const dispatch = useDispatch();
+  const addMusic = () => dispatch(addMusic())  
+  const delete_Music = (index) => dispatch(deleteMusic(index))
+  
   return (
-    <GridContainer>
+    <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
         <div style={{gridArea:"header"}}>header</div>
-        <Room/>
-        <Lyrics />
-        <Playlist/>
+        <Room elements= {elements}/>
+        <Lyrics lyrics={lyrics}/>
+        <Playlist playlist={playlist} deleteMusic = {delete_Music}/>
     </GridContainer>
     )
 }

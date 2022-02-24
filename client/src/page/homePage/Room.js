@@ -82,8 +82,11 @@ const MusicRoom = styled.div`
 
 export default function Room() {
   const handleClick = (e) => {
-  //  e.preventDefault();
-  //  if 
+   if (e.tartget.className == 'right') {
+     //플레이리스트의 다음 음악으로 변경
+     // state를
+   }
+
    console.log(`You click ${e.target.className}`)
   }
 
@@ -97,10 +100,8 @@ export default function Room() {
         <div className="room">
           <div className="room__wall room__wall-top">top</div>
           <div className="room__wall room__wall-bottom">btm</div>
-
           <div className="room__wall room__wall-left">left</div>
           <div className="room__wall room__wall-right">right</div>
-
           <div className="room__wall room__wall-back">back</div>
         </div>
       </div>
