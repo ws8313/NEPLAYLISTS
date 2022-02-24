@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import {styled}  from '@linaria/react';
 // 각 곡은 Card 형식으로 존재. X 누를 시에 List에서 제외된다.
 // DELETE_MUSIC action 실행됨. index가 바뀌는 거다.
 // 위치도 바꿀수 있어야 한다.

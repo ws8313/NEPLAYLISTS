@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import {styled}  from '@linaria/react';
 
 const Lyric = styled.div`
 ::-webkit-scrollbar { width: 5.2px; } /* 스크롤 바 */
