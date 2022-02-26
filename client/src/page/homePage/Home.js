@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import Room from './Room';
+import SearchBar from './SearchBar';
 
 import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,8 +20,8 @@ const GridContainer =  styled.div`
   grid-template-rows: 1fr 10fr 10fr ;
   grid-template-areas:
     "header header header"
-    "a main lyrics"
-    "a main playlist";
+    "search main lyrics"
+    "search main playlist";
 `
 
 export default function Home() {
@@ -47,9 +48,11 @@ export default function Home() {
   const addMusic = () => dispatch(addMusic())  
   const delete_Music = (index) => dispatch(deleteMusic(index))
   
+
   return (
     <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
         <div style={{gridArea:"header"}}>header</div>
+        <SearchBar />
         <Room elements= {elements}/>
         <Lyrics lyrics={lyrics}/>
         <Playlist playlist={playlist} deleteMusic = {delete_Music}/>

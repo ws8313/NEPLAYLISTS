@@ -14,7 +14,3 @@ export const deleteMusic = (index) => {
   type : DELETE_MUSIC,
   index
 }}
-
-//type은 import 해서 쓰고, 액션이랑 type 같이 넣어라.
-
-// 초기 state. 불필요할지도?

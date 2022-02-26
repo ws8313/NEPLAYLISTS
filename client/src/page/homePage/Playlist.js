@@ -52,7 +52,6 @@ const MusicCard = (music, index, deleteMusic) => {
   const handleDelete = (index) => {
     const deleteConfirm = window.confirm('정말로 플레이리스트에서 삭제하시겠습니까? 삭제 시 편집한 해당 곡의 Room 정보는 초기화 됩니다.');
     if (deleteConfirm) {
-      console.log(index)
       deleteMusic(index)
     }
   }
