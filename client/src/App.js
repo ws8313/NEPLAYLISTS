@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Edit from './page/edit/Edit';
 import Home from './page/homePage/Home';
-<<<<<<< HEAD
-
-
-=======
 import React from 'react';
->>>>>>> 2e30f1675ca1a7f81e46795153396279cd485a57
 function App() {
   return (
     <div className="App">
