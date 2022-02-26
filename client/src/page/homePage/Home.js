@@ -4,10 +4,10 @@ import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import Room from './Room';
 import SearchBar from './SearchBar';
-
+import Header from '../../component/header/Header'
 import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
-import  { deleteMusic }  from '../../redux/actions/playlist'
+import  { addMusic, deleteMusic, changeNowPlaying }  from '../../redux/actions/playlist'
 
 const GridContainer =  styled.div`
   height:100vh;
@@ -45,17 +45,17 @@ export default function Home() {
   }
 
   const dispatch = useDispatch();
-  const addMusic = () => dispatch(addMusic())  
+  const add_Music = (music) => dispatch(addMusic(music))  
   const delete_Music = (index) => dispatch(deleteMusic(index))
-  
+  const change_NowPlaying = (index) => dispatch(changeNowPlaying(index))
 
   return (
     <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
-        <div style={{gridArea:"header"}}>header</div>
-        <SearchBar />
-        <Room elements= {elements}/>
+        <Header/>
+        <SearchBar addMusic={add_Music}/>
+        <Room elements= {elements} nowPlaying={nowPlaying} setNowPlaying={change_NowPlaying}/>
         <Lyrics lyrics={lyrics}/>
-        <Playlist playlist={playlist} deleteMusic = {delete_Music}/>
+        <Playlist playlist={playlist} deleteMusic = {delete_Music} changeNowPlaying ={change_NowPlaying} nowPlaying = {nowPlaying}/>
     </GridContainer>
     )
 }

@@ -80,20 +80,21 @@ const MusicRoom = styled.div`
   }
 `;
 
-export default function Room() {
-  const handleClick = (e) => {
-   if (e.tartget.className == 'right') {
-     //플레이리스트의 다음 음악으로 변경
-     // state를
-   }
-
-   console.log(`You click ${e.target.className}`)
+export default function Room({setNowPlaying, nowPlaying}) {
+  const handleClick = (direction) => {
+    console.log(direction);
+       //플레이리스트의 다음 음악으로 변경
+     if (direction == 'right') {
+      setNowPlaying(nowPlaying+1)
+    } else {
+      setNowPlaying(nowPlaying-1)
+    }
   }
 
   return (
     <MusicRoom>
       <button>
-        <i className="left" onClick={handleClick}/>
+        <i className="left" onClick={()=>handleClick("left")}/>
       </button>
 
       <div className="scene">
@@ -107,7 +108,7 @@ export default function Room() {
       </div>
 
       <button>
-        <i className="right" onClick={handleClick} />
+        <i className="right" onClick={()=>handleClick("right")} />
       </button>
     </MusicRoom>
   );

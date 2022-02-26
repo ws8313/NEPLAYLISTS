@@ -1,132 +1,129 @@
 import React, { useState } from "react";
 import { styled } from "@linaria/react";
-import searchIcon from '../../asset/search.png'
-import axios from 'axios'
-const url = 'elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com:5000'
 
+import axios from "axios";
+
+import {AiFillCaretDown,AiFillCaretUp} from "react-icons/ai";
+const proxy = 'https://cors-anywhere.herokuapp.com/'
+const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 const StyledContainer = styled.div`
   grid-area: search;
-  width: 120%;
   text-align: center;
-  display: grid;
-  grid-template-columns: 10fr 2fr;
-  grid-template-rows: 1fr 15fr;
-  grid-template-areas:
-    "searchbar button"
-    "result .";
-  color : white;
+  color: white;
+
   form {
-    grid-area: searchbar;
-    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
+
+    background-color: rgba(0, 0, 0, 0.7);
     input {
       width: 70%;
       border-radius: 20px;
       border: 1px solid #bbb;
-      margin: 10px 0;
-      padding: 10px 12px;
+      margin: 30px 10px ;
+      padding: 5px;
     }
-    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  .searchToggleBtn {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 0 0 10px 10px;
+    width : 100%;
+    height : 15px;
+    color:white;
+  }
+
+  .searchResultContainer {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px 10px 0 0;
+    height:95%;
   }
   
-  button {
-    background-color: rgba(0,0,0,0.7);
-    border-radius: 0 10px 10px  0;
-    i {
-      border: solid white;
-      border-radius: 3px;
-      width: 10px;
-      height: 10px;
-      
-      border-width: 0 5px 5px 0;
-      /* border-color: red; */
-      display: inline-block;
-      padding: 3px;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-      &.show {
-        transform: rotate(45deg);
-      }
-      &.hide {
-        transform: rotate(-135deg);
-      }
-    }
-  }
-  div {
-    height:100%;
-    background-color:rgba(0,0,0,0.5);
-    li {
-      padding: 2px ;
-      margin : 5px;
-      text-align:left;
-      background-color : rgba(0,0,0,0.5);
-      border-radius: 10px;
-      display : flex;
-    h3{
-      // 노래 제목이 칸을 넘어설 시 ...으로 표현 
-      // +) onMouseOn(정확 x) dkaxms, 암튼 마우스가 올라가 있으면 제목이 Rotation.
-      overflow:hidden;
-      text-overflow: ellipsis;
-      white-space:nowrap;
+  ul {
+    border-radius: 10px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
 
-      width:15vw;
+    li {
+      
+      padding: 2px;
+      margin: 5px;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      display: flex;
+
+      .addMusicBtn {
+        background-color:rgba(50,50,50,0.7);
+        color:white;
+        height:50px;
+        width:50px;
+        border-radius: 10px;
+        font-size: xx-large;
+        margin:auto;
+      }
+
+      h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        width: 15vw;
+      }
+      img {
+        object-fit: cover;
+        height: 60px;
+        width: 60px;
+        margin-right: 7px;
+        border-radius: 10px;
+      }
     }
-    img { 
-      object-fit : cover;
-      height : 70px;
-      width : 70px;
-      margin-right : 7px;
-      border-radius : 10px;
-    }
-  }
-    
   }
 `;
 
-const ResultList = ({result}) => {
-  // 추가하는 버튼(addMusic) 필요
+const ResultList = ({ result, addMusic }) => {
   const resultList = result.map((music) => (
-      <li>
-        <img></img>
-        <div>
-         <h3>예시 제목</h3>
-        {music}
-        </div>
+    <li>
+      <img src = {music.albumImage}/>
+      <div>
+        <h3 className="title">{music.title}</h3>
+        {music.musician}
+      </div>
+      <button className="addMusicBtn" onClick={()=>addMusic(music)}>+</button>
     </li>
-    )
-  )
+  ));
 
-  return (
-    <div>
-     {resultList} 
-    </div>
-  )
-}
+  return <ul>{resultList}</ul>;
+};
 
-export default function SearchBar() {
-  const [ searchValue, setSearchValue] = useState('');
-  const [ isShow, setIsShow] = useState(false);
-  const [ searchResult, setSearchResult ] = useState([0,1])
-
+export default function SearchBar({addMusic}) {
+  const [searchValue, setSearchValue] = useState("");
+  const [isShow, setIsShow] = useState(false);
+  const [searchResult, setSearchResult] = useState([
+  ]);
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      await axios.post(`${url}/search`, {title:'title'}
-      ).then((res)=>{
-        console.log(res);
+      axios.post(`${url}/search`,{title:searchValue}, { headers : {'Content-Type': 'multipart/form-data'} })
+      .then((res)=>{
+        setSearchResult(res.data.searchlist)
       })
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   };
-  
-  return (    
-    <StyledContainer opened = {isShow}>
-      <button onClick={()=>{setIsShow(!isShow)}}><i className={isShow ? 'hide' : 'show'}></i></button>
 
-      <form onSubmit={handleSubmit}>
-        <input onChange={(e)=>{setSearchValue(e.target.value)}}/>
-      </form>
-      <ResultList result = {searchResult} /> 
-            {/* <div className>검색 결과 창</div> */}
+  return (
+    <StyledContainer>
+      { isShow? 
+      <div className="searchResultContainer">
+        <form onSubmit={handleSubmit}>
+          <input onChange={(e) => {setSearchValue(e.target.value);}}/>
+        </form>
+        <ResultList result={searchResult} addMusic={addMusic} />
+      </div> : <></>}
+      <button className={'searchToggleBtn'} onClick={() => {setIsShow(!isShow);}}>
+        {isShow ?  <AiFillCaretUp/>:<AiFillCaretDown/>}
+      </button>
     </StyledContainer>
-    );
+  );
 }
