@@ -1,45 +1,20 @@
-import React from "react";
-import {styled}  from '@linaria/react';
+import React, { useState, useEffect } from "react";
+import { styled } from "@linaria/react";
+import { AiOutlinePause,AiFillCaretRight } from "react-icons/ai";
+import PlayBtns from './Room/PlayBtns';
+
 
 const MusicRoom = styled.div`
   grid-area: main;
-  display: flex;
-  margin: auto;
-  text-align: center;
+  display:flex;
+  flex-direction: column;
 
-  justify-content: center;
-  align-items: center;
-
-  // 곡 변경 화살표
-  button {
-    margin: 50px;
-    height: 30%;
-    background-color: transparent;
-    border: transparent;
-    i {
-      border: solid black;
-      width: 10px;
-      height: 10px;
-
-      border-width: 0 5px 5px 0;
-      border-color: white;
-      display: inline-block;
-      padding: 3px;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-      &.right {
-        transform: rotate(-45deg);
-      }
-      &.left {
-        transform: rotate(135deg);
-      }
-    }
-  }
   .scene {
+    margin: auto;
     width: 400px;
     height: 400px;
     perspective: 1200px;
     perspective-origin: top;
-    /* background-color:red; */
     .room {
       width: 100%;
       height: 100%;
@@ -80,23 +55,12 @@ const MusicRoom = styled.div`
   }
 `;
 
-export default function Room({setNowPlaying, nowPlaying}) {
-  const handleClick = (direction) => {
-    console.log(direction);
-       //플레이리스트의 다음 음악으로 변경
-     if (direction == 'right') {
-      setNowPlaying(nowPlaying+1)
-    } else {
-      setNowPlaying(nowPlaying-1)
-    }
-  }
+//Music Playing
+export default function Room({ setNowPlaying, nowPlaying }) {
+  
 
   return (
     <MusicRoom>
-      <button>
-        <i className="left" onClick={()=>handleClick("left")}/>
-      </button>
-
       <div className="scene">
         <div className="room">
           <div className="room__wall room__wall-top">top</div>
@@ -106,10 +70,7 @@ export default function Room({setNowPlaying, nowPlaying}) {
           <div className="room__wall room__wall-back">back</div>
         </div>
       </div>
-
-      <button>
-        <i className="right" onClick={()=>handleClick("right")} />
-      </button>
+      <PlayBtns nowPlaying = {nowPlaying} setNowPlaying={setNowPlaying} url={"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}/>
     </MusicRoom>
   );
 }

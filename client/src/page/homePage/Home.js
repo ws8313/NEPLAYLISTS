@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import Room from './Room';
 import SearchBar from './SearchBar';
 import Header from '../../component/header/Header'
+
 import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
 import  { addMusic, deleteMusic, changeNowPlaying }  from '../../redux/actions/playlist'
@@ -33,8 +34,6 @@ export default function Home() {
     nowPlaying : state.playlist.nowPlaying,
   }})
   
-  console.log('nowPlaying', nowPlaying)
-  
   const {title, image, musician,lyrics,elements, bgImg} = {
     title : playlist[nowPlaying].title,
     image : playlist[nowPlaying].albumImage,
@@ -52,6 +51,7 @@ export default function Home() {
   return (
     <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
         <Header/>
+{/* x        <Player url = {"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}/> */}
         <SearchBar addMusic={add_Music}/>
         <Room elements= {elements} nowPlaying={nowPlaying} setNowPlaying={change_NowPlaying}/>
         <Lyrics lyrics={lyrics}/>
