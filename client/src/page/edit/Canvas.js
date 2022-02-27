@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import Draggable, { DraggableCore } from "react-draggable"
 import styled from "styled-components";
 
+window.onload = window.localStorage.clear();
+
 const Room = styled.div`
     /* position: relative; */
     width: 500px;
