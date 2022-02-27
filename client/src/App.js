@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route exact path='/' element = { <Home /> }/>
-        <Route exact path='/edit' component = { <Edit />}/>
+        <Route exact path='/edit' element = { <Edit /> }/>
       </Routes>
       </BrowserRouter>
     </div>
