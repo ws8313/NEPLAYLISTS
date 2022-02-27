@@ -1,4 +1,5 @@
 import React from 'react'
+import Canvas from './Canvas'
 
 export default function Edit() {
 
@@ -12,7 +13,7 @@ export default function Edit() {
 
   return (
     <div>
-      <canvas id='canvas' width="300" height="200" style = 'border :1px solid #000;' />
+      <Canvas />
     </div>
   )
 }
