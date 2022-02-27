@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import Room from './Room';
+import SearchBar from './SearchBar';
+import Header from '../../component/header/Header'
 
 import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
-import  { deleteMusic }  from '../../redux/actions/playlist'
+import  { addMusic, deleteMusic, changeNowPlaying }  from '../../redux/actions/playlist'
 
 const GridContainer =  styled.div`
   height:100vh;
@@ -19,8 +21,8 @@ const GridContainer =  styled.div`
   grid-template-rows: 1fr 10fr 10fr ;
   grid-template-areas:
     "header header header"
-    "a main lyrics"
-    "a main playlist";
+    "search main lyrics"
+    "search main playlist";
 `
 
 export default function Home() {
@@ -32,8 +34,6 @@ export default function Home() {
     nowPlaying : state.playlist.nowPlaying,
   }})
   
-  console.log('nowPlaying', nowPlaying)
-  
   const {title, image, musician,lyrics,elements, bgImg} = {
     title : playlist[nowPlaying].title,
     image : playlist[nowPlaying].albumImage,
@@ -44,15 +44,18 @@ export default function Home() {
   }
 
   const dispatch = useDispatch();
-  const addMusic = () => dispatch(addMusic())  
+  const add_Music = (music) => dispatch(addMusic(music))  
   const delete_Music = (index) => dispatch(deleteMusic(index))
-  
+  const change_NowPlaying = (index) => dispatch(changeNowPlaying(index))
+
   return (
     <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
-        <div style={{gridArea:"header"}}>header</div>
-        <Room elements= {elements}/>
+        <Header/>
+{/* x        <Player url = {"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}/> */}
+        <SearchBar addMusic={add_Music}/>
+        <Room elements= {elements} nowPlaying={nowPlaying} setNowPlaying={change_NowPlaying}/>
         <Lyrics lyrics={lyrics}/>
-        <Playlist playlist={playlist} deleteMusic = {delete_Music}/>
+        <Playlist playlist={playlist} deleteMusic = {delete_Music} changeNowPlaying ={change_NowPlaying} nowPlaying = {nowPlaying}/>
     </GridContainer>
     )
 }
