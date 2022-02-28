@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import Draggable, { DraggableCore } from "react-draggable"
 import styled from "styled-components";
 
+window.onload = window.localStorage.clear();
+
 const Room = styled.div`
     /* position: relative; */
     width: 500px;
@@ -44,6 +46,8 @@ export default function Canvas() {
     const [position, setPosition] = useState({ x : 0, y : 0 });
     const [roomPosition, setRoomPosition] = useState({});
     const [roomList, setRoomList] = useState([]);
+    const [selectElem, setSelectElem] = useState();
+    const [keyPosition, setKeyPosition] = useState("0 0");
     
     const nodeRef = useRef(null);
 
@@ -66,15 +70,19 @@ export default function Canvas() {
         // console.log("elem", elem);
         // console.log("startPosition", startPosition);
         // console.log("position", position);
-    }, [startPosition, position])
+        // console.log("selectElem", selectElem)
+        console.log(keyPosition)
+    }, [position, selectElem, keyPosition])
 
     const trackPosition = (e, data) => {
         setPosition({ x : data.x, y : data.y });
-        // console.log(position);
+        // console.log(e.target);
     };
 
-    const dragStartPosition = (e) => {
-        // if (startPosition === undefined) 
+    const dragStartPosition = (e, data) => {
+            setSelectElem(e.target.id)
+            // console.log()
+        
             const originalX = e.clientX;
             const originalY = e.clientY;
             
@@ -86,6 +94,7 @@ export default function Canvas() {
             // console.log(originalX, originalY);
             // console.log(startPosition);
             console.log(position);
+            console.log(selectElem);
     }
 
     const dragStopPosition = (e, data) => {
@@ -105,7 +114,6 @@ export default function Canvas() {
                 });
                 return newRoomList;
             })
-            console.log(e)
             console.log("id", e.target.id);
             console.log(roomPosition.left < e.clientX &&
                 e.clientX < roomPosition.right &&
@@ -114,13 +122,33 @@ export default function Canvas() {
             console.log("no");
         }
         else {
+            const selectElement = document.getElementById(selectElem);
+            // const dragged = document.getElementsByClassName("react-draggable-dragged")[0];
+            // const dragging = document.getElementsByClassName("react-draggable-dragging")[0];
+            // const draggable = document.getElementsByClassName("react-draggable")[0];
+            // data.lastX = 0;
+            // data.lastY = 0;
+            // data.x = 0;
+            // data.y = 0;
+            console.log(data);
+            // console.log(draggable)
+            selectElement.style.transform = DEFAULT_POSITION;
+            // dragged.style.transform = DEFAULT_POSITION;
+            // dragging.style.transform = DEFAULT_POSITION;
+            // draggable.style.transform = DEFAULT_POSITION;
             e.target.style.transform = DEFAULT_POSITION;
+
+            
+            console.log(e.target)
+            console.log(e.target.id)
             setStartPosition(startPosition);
             setPosition({ x : 0, y : 0 });
             console.log(roomPosition.left < e.clientX &&
                 e.clientX < roomPosition.right &&
                 roomPosition.top < e.clientY &&
                 e.clientY < roomPosition.bottom);
+            localStorage.removeItem(e.target.id);
+            setKeyPosition(`${data.x}` + ` ${data.y}`)
             console.log("ok");
             }
     }
@@ -135,6 +163,7 @@ export default function Canvas() {
     const elemList = elem.map((name, idx) => 
         <Draggable
             nodeRef={nodeRef} 
+            key={ idx + keyPosition }
             defaultPosition={
                 JSON.parse(localStorage.getItem(name)) === null 
                 ? position : JSON.parse(localStorage.getItem(name))
@@ -142,16 +171,15 @@ export default function Canvas() {
             onStart={(e, data) => dragStartPosition(e, data)}
             onDrag={(e, data) => trackPosition(e, data)} 
             onStop={(e, data) => dragStopPosition(e, data)}
-            key={ idx }
             >
                 <Element 
                     ref={nodeRef} 
                     id={ name }
                     >
                     { name }
-                    <button onClick={(e) => clickHandler(e)}>
+                    {/* <button onClick={(e) => clickHandler(e)}>
                         close
-                    </button>
+                    </button> */}
                 </Element>
         </Draggable>
         )
