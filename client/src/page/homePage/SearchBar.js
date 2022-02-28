@@ -4,7 +4,6 @@ import { styled } from "@linaria/react";
 import axios from "axios";
 
 import {AiFillCaretDown,AiFillCaretUp} from "react-icons/ai";
-const proxy = 'https://cors-anywhere.herokuapp.com/'
 const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 const StyledContainer = styled.div`
   grid-area: search;
@@ -81,6 +80,21 @@ const StyledContainer = styled.div`
 `;
 
 const ResultList = ({ result, addMusic }) => {
+  const handleAddMusic = async (music) => {
+    try {
+      // e.preventDefault();
+      let formData = new FormData();
+      formData.append('title',music.title)
+      formData.append('musician',music.musician)
+      axios.post(`${url}/add-music`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
+      .then((res)=>{
+        console.log("response는",res.data.musicInfo);
+        addMusic((res.data.musicInfo));
+      })
+    } catch (e){
+      console.log(e);
+    }
+  }
   const resultList = result.map((music) => (
     <li>
       <img src = {music.albumImage}/>
@@ -88,7 +102,7 @@ const ResultList = ({ result, addMusic }) => {
         <h3 className="title">{music.title}</h3>
         {music.musician}
       </div>
-      <button className="addMusicBtn" onClick={()=>addMusic(music)}>+</button>
+      <button className="addMusicBtn" onClick={()=>handleAddMusic(music)}>+</button>
     </li>
   ));
 
@@ -103,8 +117,12 @@ export default function SearchBar({addMusic}) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      axios.post(`${url}/search`,{title:searchValue}, { headers : {'Content-Type': 'multipart/form-data'} })
+      let formData = new FormData();
+      formData.append('keyword',searchValue)
+      console.log(searchValue)
+      axios.post(`${url}/search`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
       .then((res)=>{
+        console.log(res);
         setSearchResult(res.data.searchlist)
       })
     } catch (e) {

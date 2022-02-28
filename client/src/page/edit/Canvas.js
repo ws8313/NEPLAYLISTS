@@ -42,7 +42,6 @@ const Element = styled.li`
 export default function Canvas() {
     const [startPosition, setStartPosition] = useState();
     const [position, setPosition] = useState({ x : 0, y : 0 });
-    // const [elem, setElem] = useState(["elem1", "elem2", "elem3", "elem4", "elem5"]);
     const [roomPosition, setRoomPosition] = useState({});
     const [roomList, setRoomList] = useState([]);
     
@@ -84,8 +83,8 @@ export default function Canvas() {
                 x : originalX,
                 y : originalY
             })
-            console.log(originalX, originalY);
-            console.log(startPosition);
+            // console.log(originalX, originalY);
+            // console.log(startPosition);
             console.log(position);
     }
 

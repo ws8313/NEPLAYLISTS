@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@linaria/react";
-import { AiOutlinePause,AiFillCaretRight } from "react-icons/ai";
 import PlayBtns from './Room/PlayBtns';
 
 
@@ -14,7 +13,7 @@ const MusicRoom = styled.div`
     width: 400px;
     height: 400px;
     perspective: 1200px;
-    perspective-origin: top;
+    perspective-origin: top right;
     .room {
       width: 100%;
       height: 100%;
@@ -26,39 +25,40 @@ const MusicRoom = styled.div`
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: green;
-      opacity: 0.5;
+      /* background-color: green; */
+      /* opacity: 0.5; */
     }
 
     .room__wall-front {
       transform: rotateY(0deg) translateZ(200px);
-      background-color: white;
     }
     .room__wall-right {
       transform: rotateY(90deg) translateZ(200px);
-      background-color: red;
+      /* background-color: red; */
     }
     .room__wall-back {
-      transform: rotateY(180deg) translateZ(200px);
-      background-color: black;
+      transform: rotateY(180deg) translateZ(200px) scaleX(-1);
+      
+      /* background-color: black; */
     }
     .room__wall-left {
       transform: rotateY(-90deg) translateZ(200px);
-      background-color: red;
+      /* background-color: red; */
     }
     .room__wall-top {
       transform: rotateX(90deg) translateZ(200px);
+
     }
     .room__wall-bottom {
       transform: rotateX(-90deg) translateZ(200px);
+      background-color: rgba(0,0,0,0.5);
+      border : transparent;
     }
   }
 `;
 
 //Music Playing
-export default function Room({ setNowPlaying, nowPlaying }) {
-  
-
+export default function Room({ setNowPlaying, nowPlaying, music,changeNowPlaying }) {
   return (
     <MusicRoom>
       <div className="scene">
@@ -67,10 +67,10 @@ export default function Room({ setNowPlaying, nowPlaying }) {
           <div className="room__wall room__wall-bottom">btm</div>
           <div className="room__wall room__wall-left">left</div>
           <div className="room__wall room__wall-right">right</div>
-          <div className="room__wall room__wall-back">back</div>
+          <div className="room__wall room__wall-back" style={{ background : `url(${music.albumImage})`, backgroundSize: 'contain'}}>back</div>
         </div>
       </div>
-      <PlayBtns nowPlaying = {nowPlaying} setNowPlaying={setNowPlaying} url={"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}/>
+      <PlayBtns nowPlaying = {nowPlaying} setNowPlaying={setNowPlaying} music={music} changeNowPlaying={changeNowPlaying}/>
     </MusicRoom>
   );
 }

@@ -34,13 +34,11 @@ export default function Home() {
     nowPlaying : state.playlist.nowPlaying,
   }})
   
-  const {title, image, musician,lyrics,elements, bgImg} = {
-    title : playlist[nowPlaying].title,
-    image : playlist[nowPlaying].albumImage,
-    musician : playlist[nowPlaying].musician,    
+  const {music, lyrics, bgImg} = {
+    music : playlist[nowPlaying],
     lyrics : playlist[nowPlaying].lyrics,
     elements : playlist[nowPlaying].elements,
-    bgImg : playlist[nowPlaying].bgImg
+    bgImg : playlist[nowPlaying].albumImage
   }
 
   const dispatch = useDispatch();
@@ -49,11 +47,10 @@ export default function Home() {
   const change_NowPlaying = (index) => dispatch(changeNowPlaying(index))
 
   return (
-    <GridContainer style={{backgroundImage:`url(${bgImg})`}}>
+    <GridContainer style={{backgroundColor:`white`}}>
         <Header/>
-{/* x        <Player url = {"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}/> */}
         <SearchBar addMusic={add_Music}/>
-        <Room elements= {elements} nowPlaying={nowPlaying} setNowPlaying={change_NowPlaying}/>
+        <Room music = {music} nowPlaying={nowPlaying} changeNowPlaying={change_NowPlaying}/>
         <Lyrics lyrics={lyrics}/>
         <Playlist playlist={playlist} deleteMusic = {delete_Music} changeNowPlaying ={change_NowPlaying} nowPlaying = {nowPlaying}/>
     </GridContainer>
