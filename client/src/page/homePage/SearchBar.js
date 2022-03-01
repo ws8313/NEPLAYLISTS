@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { styled } from "@linaria/react";
 
 import axios from "axios";
-
+import { useDispatch, useSelector } from "react-redux";
+import {addMusic} from '../../redux/actions/playlist'
 import {AiFillCaretDown,AiFillCaretUp} from "react-icons/ai";
+
 const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 const StyledContainer = styled.div`
   grid-area: search;
@@ -79,17 +81,17 @@ const StyledContainer = styled.div`
   }
 `;
 
-const ResultList = ({ result, addMusic }) => {
+const ResultList = ({ result }) => {
+  const dispatch = useDispatch();
   const handleAddMusic = async (music) => {
     try {
-      // e.preventDefault();
       let formData = new FormData();
       formData.append('title',music.title)
       formData.append('musician',music.musician)
       axios.post(`${url}/add-music`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
       .then((res)=>{
         console.log("response는",res.data.musicInfo);
-        addMusic((res.data.musicInfo));
+        dispatch(addMusic((res.data.musicInfo)));
       })
     } catch (e){
       console.log(e);
@@ -109,7 +111,7 @@ const ResultList = ({ result, addMusic }) => {
   return <ul>{resultList}</ul>;
 };
 
-export default function SearchBar({addMusic}) {
+export default function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [isShow, setIsShow] = useState(false);
   const [searchResult, setSearchResult] = useState([
@@ -117,12 +119,10 @@ export default function SearchBar({addMusic}) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('keyword',searchValue)
-      console.log(searchValue)
       axios.post(`${url}/search`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
       .then((res)=>{
-        console.log(res);
         setSearchResult(res.data.searchlist)
       })
     } catch (e) {
@@ -137,7 +137,7 @@ export default function SearchBar({addMusic}) {
         <form onSubmit={handleSubmit}>
           <input onChange={(e) => {setSearchValue(e.target.value);}}/>
         </form>
-        <ResultList result={searchResult} addMusic={addMusic} />
+        <ResultList result={searchResult}/>
       </div> : <></>}
       <button className={'searchToggleBtn'} onClick={() => {setIsShow(!isShow);}}>
         {isShow ?  <AiFillCaretUp/>:<AiFillCaretDown/>}

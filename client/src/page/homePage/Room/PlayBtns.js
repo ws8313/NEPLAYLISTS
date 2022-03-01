@@ -16,12 +16,7 @@ const Container = styled.div`
     height: 50px;
   }
 `
-// 일단, 연결해서 분석을 하면, 이런식으로 분석결과가 나타나고, 어떤 것들을 추천해줄 것이다. 라는 것 까지 설명을 해야할 것 같아서요.
-// 오늘 분석 요청하는 api 보내서, 결과 받는 것까지는 불가능하니까, 그냥 이론적으로 어떤 툴을 써서, 카테고리 00개로 분류를 할 것이다 라는 이야기.
-// + 알파
-// 실제로, 해본 결과물. 등등....   
-
-export default function PlayBtns({music, changeNowPlaying, nowPlaying}) { 
+export default function PlayBtns({music, setNowPlaying, nowPlaying}) { 
   const audioPlayer = useRef();
   const audio = new Audio(music.audio)
   const [playing,setPlaying ]= useState(true)
@@ -40,9 +35,9 @@ export default function PlayBtns({music, changeNowPlaying, nowPlaying}) {
     const handleMoveToAnotherMusic = (e) => {
     const direction = e.target.className;
     if (direction == "prev") {
-      changeNowPlaying(nowPlaying - 1);
+      setNowPlaying(nowPlaying - 1);
     } else {
-      changeNowPlaying(nowPlaying + 1);
+      setNowPlaying(nowPlaying + 1);
     }
   };
   console.log(music)

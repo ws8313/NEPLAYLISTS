@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@linaria/react";
 import PlayBtns from './Room/PlayBtns';
-
+import { setNowPlaying } from "../../redux/actions/playlist";
+import { useDispatch, useSelector } from "react-redux";
 
 const MusicRoom = styled.div`
   grid-area: main;
@@ -58,19 +59,28 @@ const MusicRoom = styled.div`
 `;
 
 //Music Playing
-export default function Room({ setNowPlaying, nowPlaying, music,changeNowPlaying }) {
+export default function Room() {
+
+  const dispatch = useDispatch();
+  const setNowPlaying= (idx) => dispatch(setNowPlaying(idx))
+  const {nowPlaying, music} = useSelector(state => {
+    return {
+    nowPlaying : state.playlist.nowPlaying,
+    music : state.playlist.playlist[state.playlist.nowPlaying]
+  }})
+
   return (
     <MusicRoom>
       <div className="scene">
         <div className="room">
-          <div className="room__wall room__wall-top">top</div>
-          <div className="room__wall room__wall-bottom">btm</div>
-          <div className="room__wall room__wall-left">left</div>
-          <div className="room__wall room__wall-right">right</div>
-          <div className="room__wall room__wall-back" style={{ background : `url(${music.albumImage})`, backgroundSize: 'contain'}}>back</div>
+          <div className="room__wall room__wall-top" />
+          <div className="room__wall room__wall-bottom"/>
+          <div className="room__wall room__wall-left"/>
+          <div className="room__wall room__wall-right"/>
+          <div className="room__wall room__wall-back" style={{ background : `url(${music.albumImage})`, backgroundSize: 'contain'}}/>
         </div>
       </div>
-      <PlayBtns nowPlaying = {nowPlaying} setNowPlaying={setNowPlaying} music={music} changeNowPlaying={changeNowPlaying}/>
+      <PlayBtns nowPlaying = {nowPlaying} setNowPlaying={setNowPlaying} music={music} />
     </MusicRoom>
   );
 }

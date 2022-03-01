@@ -1,7 +1,7 @@
 //Action
 export const ADD_MUSIC = 'ADD_MUSIC'
 export const DELETE_MUSIC = 'DELETE_MUSIC'
-export const CHANGE_NOWPLAYING = 'CHANGE_NOWPLAYING'
+export const SET_NOWPLAYING = 'SET_NOWPLAYING'
 
 //Action Creators
 export const addMusic = (music) => {
@@ -16,9 +16,9 @@ export const deleteMusic = (index) => {
   index
 }}
 
-export const changeNowPlaying = (index) => {
+export const setNowPlaying = (index) => {
   return {
-    type : CHANGE_NOWPLAYING,
+    type : SET_NOWPLAYING,
     index
   }
 }
