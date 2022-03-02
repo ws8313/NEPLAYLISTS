@@ -22,8 +22,8 @@ const GridContainer =  styled.div`
     grid-template-rows: 1fr 10fr 10fr ;
     grid-template-areas:
         "header header header"
-        ". main ."
-        ". elementlist .";
+        "elementlist main ."
+        "elementlist main .";
     
     ::before {
         content: "";
@@ -127,26 +127,53 @@ const MusicRoom = styled.div`
 
 const ElementList = styled.div`
     display: flex;
+    flex-flow: row wrap;
+    /* grid-template-columns: 1fr 1fr; */
+    position: relative;
     grid-area: elementlist;
     align-items: center;
-    width: 1000px;
-    height: 200px;
+    width: 400px;
+    height: 1200px;
     /* left: auto; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin: auto;
     padding: 1em;
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
     /* margin-top: 50px; */
+    animation: slide 2s;
+
+    ::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        background-color: black;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: 15px;
+    }
+    
+    @keyframes slide {
+        from{
+            left: -500px;
+        }
+        to{
+            left: 0px;
+        }
+    }
     `
 
 const Element = styled.li`
     display: flex;
+    /* flex: 0 1 calc(50%); */
     justify-content: center;
     align-items: center;
     cursor: move;
     color: black;
-    width: 100px;
-    height: 100px;
+    width: 45%;
+    height: 250px;
     border-radius: 5px;
     /* padding: 1em; */
     margin: auto;
@@ -291,7 +318,7 @@ export default function Canvas() {
     }
 
     
-    const elem = ["elem1", "elem2", "elem3", "elem4", "elem5"];
+    const elem = ["elem1", "elem2", "elem3", "elem4", "elem5", "elem6", "elem7", ];
     const elemList = elem.map((name, idx) => 
         <Draggable
             nodeRef={nodeRef} 
@@ -325,17 +352,18 @@ export default function Canvas() {
             {/* <Room /> */}
             <div className="scene">
                 <div id="room" className="room">
-                <div className="room__wall room__wall-top" />
-                <div className="room__wall room__wall-bottom"/>
-                <div className="room__wall room__wall-left"/>
-                <div className="room__wall room__wall-right"/>
-                <div className="room__wall room__wall-back" style={{ background : `url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg)`, backgroundSize: 'contain'}}/>
+                    <div className="room__wall room__wall-top" />
+                    <div className="room__wall room__wall-bottom"/>
+                    <div className="room__wall room__wall-left"/>
+                    <div className="room__wall room__wall-right"/>
+                    <div className="room__wall room__wall-back" style={{ background : `url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg)`, backgroundSize: 'contain'}}/>
+                </div>
             </div>
-        </div>
-        </MusicRoom>
+            </MusicRoom>
             <ElementList id="elemList">
                 { elemList }
             </ElementList>
+            
         </GridContainer>
 
     )
