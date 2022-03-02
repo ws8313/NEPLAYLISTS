@@ -4,12 +4,15 @@ import './App.css';
 import Edit from './page/edit/Edit';
 import Home from './page/homePage/Home';
 import React from 'react';
+import CanvasTest from './page/CanvasTest/CanvasTest';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Routes>
+      <Route exact path='/test' element = { <CanvasTest /> }/>
+
         <Route exact path='/' element = { <Home /> }/>
         <Route exact path='/edit' element = { <Edit /> }/>
       </Routes>

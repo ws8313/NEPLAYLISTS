@@ -36,6 +36,7 @@ const MusicContainer = styled.ul`
   list-style: none;
   line-height: 1;
   overflow: auto;
+  vertical-align: center;
 
   li {
     padding: 2px;
@@ -44,13 +45,13 @@ const MusicContainer = styled.ul`
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     display: flex;
-
-    h3 {
+    div{
+      width:100%;
+      h3 {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 15vw;
-    }
+    }}
     img {
       object-fit: cover;
       height: 50px;
@@ -60,13 +61,13 @@ const MusicContainer = styled.ul`
     }
 
     button {
+      margin:auto;
       background-color: rgba(50, 50, 50, 0.7);
       color: white;
       height: 40px;
       width: 40px;
       border-radius: 10px;
       font-size: xx-large;
-      margin: auto;
       * {
         margin: auto;
       }
@@ -74,16 +75,13 @@ const MusicContainer = styled.ul`
   }
 `;
 
-const MusicCard = (music, idx,delete_Music, set_NowPlaying) => {
-  // const navigate = useNavigate();
-
-  const moveToEditPage=()=>{
-      // navigate("/edit/", {
-      //   state: [ music, idx ],
-      // });
-  }
-  
-  
+const MusicCard = ({
+  music,
+  idx,
+  delete_Music,
+  set_NowPlaying,
+  moveToEditPage}
+) => {
   const handleDelete = (idx) => {
     const deleteConfirm = window.confirm(
       "정말로 플레이리스트에서 삭제하시겠습니까? 삭제 시 편집한 해당 곡의 Room 정보는 초기화 됩니다."
@@ -92,7 +90,7 @@ const MusicCard = (music, idx,delete_Music, set_NowPlaying) => {
       delete_Music(idx);
     }
   };
-
+  console.log(music);
   return (
     <li>
       <img src={music.albumImage} />
@@ -103,9 +101,7 @@ const MusicCard = (music, idx,delete_Music, set_NowPlaying) => {
       <button onClick={() => set_NowPlaying(idx)}>
         <AiFillCaretRight />
       </button>
-      <button
-        onClick={() => moveToEditPage(music,idx)}
-      >
+      <button onClick={() => moveToEditPage(music, idx)}>
         <AiOutlineScissor />
       </button>
       <button onClick={() => handleDelete(idx)}>
@@ -115,11 +111,12 @@ const MusicCard = (music, idx,delete_Music, set_NowPlaying) => {
   );
 };
 
+
 export default function Playlist() {
   const dispatch = useDispatch();
-  const delete_Music = (idx) => dispatch(deleteMusic(idx))
-  const set_NowPlaying = (idx) =>  dispatch(setNowPlaying(idx))
-  
+
+  const delete_Music = (idx) => dispatch(deleteMusic(idx));
+  const set_NowPlaying = (idx) => dispatch(setNowPlaying(idx));
 
   const { playlist, nowPlaying } = useSelector((state) => {
     return {
@@ -127,7 +124,39 @@ export default function Playlist() {
       nowPlaying: state.playlist.nowPlaying,
     };
   });
-  
-  const playLists = playlist.map((music, idx) => MusicCard(music, idx, delete_Music, set_NowPlaying));
-  return <MusicContainer>{playLists}</MusicContainer>;
+
+  const navigate = useNavigate();
+
+  const moveToEditPage = (music, idx) => {
+    navigate("/edit/", {
+      state: [music, idx],
+    });
+  };
+
+  const PlayLists = () => {
+    return (
+      <>
+        {playlist.map((music, idx) => (
+          <MusicCard
+            music={music}
+            idx={idx}
+            delete_Music={delete_Music}
+            set_NowPlaying={set_NowPlaying}
+            moveToEditPage={moveToEditPage}
+          />
+        ))}
+      </>
+    );
+  };
+
+  return (
+    <MusicContainer>
+      <PlayLists />
+    </MusicContainer>
+  );
 }
+
+  // anti-pattern
+  // camelcase playList
+  // jsx를 return 하는 함수나 객체는 무조건 대문자로 시작해야 합니다.
+  // component는 무조건 component가 리턴해야합니다.
