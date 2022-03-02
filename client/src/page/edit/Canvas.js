@@ -1,29 +1,142 @@
 import React, { useState, useRef, useEffect } from "react";
 import Draggable, { DraggableCore } from "react-draggable"
-import styled from "styled-components";
+
+
+import Header from '../../component/header/Header'
+import Room from '../homePage/Room';
+
+import { styled } from "@linaria/react";
+
+import { useSelector, useDispatch } from 'react-redux';
 
 window.onload = window.localStorage.clear();
 
-const Room = styled.div`
-    /* position: relative; */
-    width: 500px;
-    height: 400px;
-    left: auto;
-    margin: auto;
-    border: black 2px solid;
-    `
+const GridContainer =  styled.div`
+    height:100vh;
 
-const ElementList = styled.ul`
+    background-size : cover;
+    background-repeat: no-repeat;
+
+    display:grid;
+    grid-template-columns:  1fr 2fr 1fr;
+    grid-template-rows: 1fr 10fr 10fr ;
+    grid-template-areas:
+        "header header header"
+        ". main ."
+        ". elementlist .";
+    
+    ::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        background : url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg);
+        background-size: cover;
+        opacity: 0.7;
+        z-index: -1;
+    }
+`
+
+// const Background = styled.div`
+    /* height: 100vh; */
+    /* background : url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg);
+    background-size: cover; */
+    
+    /* &::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        background : url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg);
+        background-size: cover;
+        opacity: 0.5;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    } */
+// `
+
+// // const Room = styled.div`
+//     /* position: relative; */
+//     width: 500px;
+//     height: 400px;
+//     left: auto;
+//     margin: auto;
+//     border: black 2px solid;
+// `
+
+const MusicRoom = styled.div`
+    grid-area: main;
+    display:flex;
+    flex-direction: column;
+
+    margin-bottom: 50px;
+
+    .scene {
+        margin: auto;
+        padding-top: 50px;
+        width: 600px;
+        height: 600px;
+        perspective: 1200px;
+        perspective-origin: top right;
+    .room {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: translateZ(-100px);
+        }
+    .room__wall {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        /* background-color: green; */
+        /* opacity: 0.5; */
+        }
+
+    .room__wall-front {
+        transform: rotateY(0deg) translateZ(300px);
+        }
+    .room__wall-right {
+        transform: rotateY(90deg) translateZ(300px);
+        /* background-color: red; */
+        }
+    .room__wall-back {
+        transform: rotateY(180deg) translateZ(300px) scaleX(-1);
+
+        /* background-color: black; */
+        }
+    .room__wall-left {
+        transform: rotateY(-90deg) translateZ(300px);
+        /* background-color: red; */
+        }
+    .room__wall-top {
+        transform: rotateX(90deg) translateZ(300px);
+
+        }
+    .room__wall-bottom {
+        transform: rotateX(-90deg) translateZ(300px);
+        background-color: rgba(0,0,0,0.5);
+        border : transparent;
+        }
+    }
+    `;
+
+const ElementList = styled.div`
     display: flex;
+    grid-area: elementlist;
     align-items: center;
-    width: 800px;
-    height: 150px;
-    left: auto;
-    border-radius: 5px;
+    width: 1000px;
+    height: 200px;
+    /* left: auto; */
+    border-radius: 10px;
     margin: auto;
     padding: 1em;
     background-color: lightgrey;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     `
 
 const Element = styled.li`
@@ -48,6 +161,14 @@ export default function Canvas() {
     const [roomList, setRoomList] = useState([]);
     const [selectElem, setSelectElem] = useState();
     const [keyPosition, setKeyPosition] = useState("0 0");
+    const [resizeListener, setResizeListener] = useState(null);
+
+    const {playlist, nowPlaying } = useSelector(state => {
+        console.log('state', state.playlist.playlist[0].albumImage)
+        return {
+        playlist : state.playlist.playlist,
+        nowPlaying : state.playlist.nowPlaying,
+    }})
     
     const nodeRef = useRef(null);
 
@@ -62,7 +183,18 @@ export default function Canvas() {
             bottom : roomRect.top + roomRect.height,
             right : roomRect.left + roomRect.width,
         })
-    }, [])
+    }, [resizeListener])
+
+    useEffect(() => {
+        function handleResize() {
+            setResizeListener(window.innerWidth);
+        }
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+    
 
     useEffect(() => {
         // console.log("roomPosition", roomPosition)
@@ -71,7 +203,7 @@ export default function Canvas() {
         // console.log("startPosition", startPosition);
         // console.log("position", position);
         // console.log("selectElem", selectElem)
-        console.log(keyPosition)
+        console.log(resizeListener, roomPosition)
     }, [position, selectElem, keyPosition])
 
     const trackPosition = (e, data) => {
@@ -185,13 +317,27 @@ export default function Canvas() {
         )
 
     return (
-        <div>
-            <Room id="room">
-            </Room>
+        <GridContainer style={{}}>
+            <Header/>
+            <MusicRoom>
+            {/* <Room id="room">
+            </Room> */}
+            {/* <Room /> */}
+            <div className="scene">
+                <div id="room" className="room">
+                <div className="room__wall room__wall-top" />
+                <div className="room__wall room__wall-bottom"/>
+                <div className="room__wall room__wall-left"/>
+                <div className="room__wall room__wall-right"/>
+                <div className="room__wall room__wall-back" style={{ background : `url(https://cdn.notefolio.net/img/ea/f0/eaf061b315f6f9e515ea5d49c84ca9d0a0e270a0a50a60c6c3e83a187e5dc112_v1.jpg)`, backgroundSize: 'contain'}}/>
+            </div>
+        </div>
+        </MusicRoom>
             <ElementList id="elemList">
                 { elemList }
             </ElementList>
-        </div>
+        </GridContainer>
+
     )
     // return (
     //     <div>
