@@ -35,7 +35,7 @@ export default function Home() {
   
   
   return (
-    <GridContainer style={{backgroundColor:`white`}}>
+    <GridContainer style={{backgroundColor: "#292d2f"}}>
         <Header/>
         <SearchBar />
         <Room />
