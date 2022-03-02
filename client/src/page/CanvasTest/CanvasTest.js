@@ -8,16 +8,20 @@ export default function CanvasTest() {
   
   const [ctx, setCtx] = useState();
   useEffect(()=>{
-    const canvas = canvasRef.current;
+    let canvas = document.getElementById('canvas');
     canvas.width = window.innerWidth -100;
     canvas.height  = window.innerHeight -100;
+    console.log(canvas);
 
-    const context = canvas.getContext('2d');
-    context.scale(2,2)
-    context.lineCap = "round"
-    context.strokeStyle = "Black"
-    context.lineWidth = 5
-    context.current = context;
+    let context = canvas.getContext('2d');
+    context.fillStyle = 'green'
+    context.fillRect(10,10,100,100);
+    // context.scale(2,2)
+    // context.lineCap = "round"
+    // context.strokeStyle = "Black"
+    // context.lineWidth = 5
+    // context.current = context;
+    console.log(context);
     
     var dino = {
       x:10,
@@ -27,7 +31,7 @@ export default function CanvasTest() {
       draw(){
         context.fillStyle = 'green'
         context.fillRect = (10,10,100,100)
-        console.log('하이');
+        console.log(dino);
       }
     }
     dino.draw() 
