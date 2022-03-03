@@ -3,20 +3,29 @@ import React, { useEffect, useRef,useState } from 'react'
 
 export default function CanvasTest() {
   
+  // three.js를 쓰던가
+  // 2D로 하던가 => canvas 
+
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   
   const [ctx, setCtx] = useState();
+  
+
   useEffect(()=>{
-    const canvas = canvasRef.current;
+    let canvas = document.getElementById('canvas');
     canvas.width = window.innerWidth -100;
     canvas.height  = window.innerHeight -100;
 
-    const context = canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     context.scale(2,2)
     context.lineCap = "round"
     context.strokeStyle = "Black"
     context.lineWidth = 5
+    
+    context.fillStyle = 'green'
+    context.fillRect = (10,10,100,100)
+
     context.current = context;
     
     var dino = {
@@ -25,8 +34,6 @@ export default function CanvasTest() {
       width:50,
       height:50,
       draw(){
-        context.fillStyle = 'green'
-        context.fillRect = (10,10,100,100)
         console.log('하이');
       }
     }

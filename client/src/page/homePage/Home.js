@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-
 import Lyrics from './Lyrics'
 import Playlist from './Playlist'
 import Room from './Room';
 import SearchBar from './SearchBar';
 import Header from '../../component/header/Header'
+import Viewer from '../CanvasTest/Viewer';
 
 import {styled}  from '@linaria/react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,10 +12,8 @@ import  { addMusic, deleteMusic, changeNowPlaying }  from '../../redux/actions/p
 
 const GridContainer =  styled.div`
   height:100vh;
-
   background-size : cover;
-  background-repeat: no-repeat;
-  
+  background-repeat: no-repeat;  
   display:grid;
   grid-template-columns:  1fr 2fr 1fr;
   grid-template-rows: 1fr 10fr 10fr ;
@@ -33,12 +31,11 @@ export default function Home() {
     nowPlaying : state.playlist.nowPlaying,
   }})
   
-  
   return (
     <GridContainer style={{backgroundColor: "#292d2f"}}>
         <Header/>
+        <Viewer />
         <SearchBar />
-        <Room />
         <Lyrics />
         <Playlist />
     </GridContainer>
