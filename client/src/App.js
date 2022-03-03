@@ -6,13 +6,15 @@ import Home from './page/homePage/Home';
 import React from 'react';
 import CanvasTest from './page/CanvasTest/CanvasTest';
 
+import GltfTest from './page/GltfTest/GltfTest'
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Routes>
       <Route exact path='/test' element = { <CanvasTest /> }/>
-
+      <Route exact path='/gltftest' element = { <GltfTest /> }/>
         <Route exact path='/' element = { <Home /> }/>
         <Route exact path='/edit' element = { <Edit /> }/>
       </Routes>
