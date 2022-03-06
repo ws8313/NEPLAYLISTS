@@ -26,12 +26,15 @@ const MusicContainer = styled.ul`
   ::-webkit-scrollbar-thumb:active {
     background: #808080;
   } /* 실질적 스크롤 바를 클릭할 때 */
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:300px;
+  height:50%;
 
-  grid-area: playlist;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   color: white;
-
   margin: 5px;
   list-style: none;
   line-height: 1;

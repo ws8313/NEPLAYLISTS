@@ -8,7 +8,10 @@ import {AiFillCaretDown,AiFillCaretUp} from "react-icons/ai";
 
 const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 const StyledContainer = styled.div`
-  grid-area: search;
+  position:absolute;
+  top: 45px;
+  width:300px;
+  height : 95vh;
   text-align: center;
   color: white;
 
@@ -121,7 +124,7 @@ export default function SearchBar() {
       e.preventDefault();
       const formData = new FormData();
       formData.append('keyword',searchValue)
-      axios.post(`${url}/search`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
+      axios.post(`${url}/find`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
       .then((res)=>{
         setSearchResult(res.data.searchlist)
       })
@@ -130,6 +133,7 @@ export default function SearchBar() {
     }
   };
 
+  
   return (
     <StyledContainer>
       { isShow? 

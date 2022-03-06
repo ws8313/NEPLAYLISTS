@@ -11,16 +11,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import  { addMusic, deleteMusic, changeNowPlaying }  from '../../redux/actions/playlist'
 
 const GridContainer =  styled.div`
-  height:100vh;
   background-size : cover;
   background-repeat: no-repeat;  
-  display:grid;
-  grid-template-columns:  1fr 2fr 1fr;
-  grid-template-rows: 1fr 10fr 10fr ;
-  grid-template-areas:
-    "header header header"
-    "search main lyrics"
-    "search main playlist";
 `
 
 export default function Home() {
@@ -34,7 +26,8 @@ export default function Home() {
   return (
     <GridContainer style={{backgroundColor: "#292d2f"}}>
         <Header/>
-        <Viewer />
+        <Room />
+        <Viewer edit = {true}/>
         <SearchBar />
         <Lyrics />
         <Playlist />

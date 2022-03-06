@@ -8,16 +8,19 @@ const Lyric = styled.div`
 ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; } /* 실질적 스크롤 바 */
 ::-webkit-scrollbar-thumb:hover { background: #404040; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
 ::-webkit-scrollbar-thumb:active { background: #808080; } /* 실질적 스크롤 바를 클릭할 때 */
- 
-  //grid 위치 설정
-  grid-area:lyrics;
+
+  position:absolute;
+  top:45px;
+  right:0;
+
+  width:300px;
+  height:30%;
   background-color : rgba(0,0,0,0.5);
   border-radius: 10px;
   color:white;
 
   list-style : none;
   margin :5px;
-  padding:10px;
 
   text-align:center;
   overflow:auto;
