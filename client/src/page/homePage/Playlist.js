@@ -26,8 +26,9 @@ const MusicContainer = styled.ul`
   ::-webkit-scrollbar-thumb:active {
     background: #808080;
   } /* 실질적 스크롤 바를 클릭할 때 */
+  box-sizing:border-box;
   position:absolute;
-  bottom:0;
+  bottom:50px;
   right:0;
   width:300px;
   height:50%;
@@ -40,7 +41,7 @@ const MusicContainer = styled.ul`
   line-height: 1;
   overflow: auto;
   vertical-align: center;
-
+  
   li {
     padding: 2px;
     margin: 5px;

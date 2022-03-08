@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   position:absolute;
   top: 45px;
   width:300px;
-  height : 95vh;
+  height : 90vh;
   text-align: center;
   color: white;
 

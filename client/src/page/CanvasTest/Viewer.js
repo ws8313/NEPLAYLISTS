@@ -10,11 +10,7 @@ import Draggable from "./Draggable";
 import IsometricRoom from './Isometric_room'
 
 const CanvasContainer = styled.div`
-  /* grid-area: main ; */
-  position:default;
-  height:100vh;
-  display: flex;
-  flex-direction: column;
+  height:calc(100vh - 46px);
 `;
 
 export default function Viewer({edit}) {
@@ -39,16 +35,14 @@ export default function Viewer({edit}) {
 
   return (
     <>
-
     <CanvasContainer>
       <Canvas camera={{fov:45, position:[300,300,300]}}>
-        <color attach="background" args={["black"]} />
+        <color attach="background" args={["grey"]} />
         <OrbitControls 
-          minPolarAngle={edit ? - Math.PI/2 : Math.PI/4 }
-          maxPolarAngle={edit ? Math.PI/4 : Math.PI/4 }
-          // edit? - Math.PI / 4 :
-          minAzimuthAngle={edit ? 0: Math.PI/4 }
-          maxAzimuthAngle={edit ? Math.PI/2 : Math.PI/4 } />
+          minPolarAngle = { edit ? Math.PI/4 : -Math.PI/2 }
+          maxPolarAngle = { edit ? Math.PI/4 : Math.PI/3 }
+          minAzimuthAngle={edit ? Math.PI/4 : 0 }
+          maxAzimuthAngle={edit ? Math.PI/4 : Math.PI/2  } />
         <ambientLight intensity={0.2} />
         {/* <directionalLight intensity={0.5} /> */}
         {/* <pointLight color="white" intensity = {1}  /> */}
@@ -58,10 +52,11 @@ export default function Viewer({edit}) {
           {/* 만약 추가 패이지 자체는 링크로 두고,  */}
           {/* <Room /> */}
           <IsometricRoom receiveShadow/>
-          <Draggable show={false} />
+          <Draggable show={edit} />
         </Suspense>
       </Canvas>
     </CanvasContainer>
+    
     </>
   );
 }

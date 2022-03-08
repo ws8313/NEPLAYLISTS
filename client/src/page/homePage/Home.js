@@ -16,11 +16,6 @@ import {
 import ItemEditor from "../CanvasTest/ItemEditor";
 import PlayBtns from "./Room/PlayBtns";
 
-const GridContainer = styled.div`
-  background-size: cover;
-  background-repeat: no-repeat;
-`;
-
 export default function Home() {
   const [edit, setEdit] = useState(false);
   const { playlist, nowPlaying } = useSelector((state) => {
@@ -31,11 +26,17 @@ export default function Home() {
     };
   });
 
+  const EditBtn = styled.button`
+    position:absolute;
+    right:0;
+    bottom:0;
+    height:50px;
+    width:300px;
+    margin:5px;
+  `
   return (
-    <GridContainer style={{ backgroundColor: "#292d2f" }}>
+    <div>
       <Header />
-      {/* <Room /> */}
-
       <Viewer edit={edit} />
       {edit ? (
         <ItemEditor />
@@ -46,6 +47,8 @@ export default function Home() {
           <Playlist />
         </>
       )}
-    </GridContainer>
+    
+          <EditBtn onClick={() =>setEdit(!edit)}>Edit 하기</EditBtn>
+    </div>
   );
 }

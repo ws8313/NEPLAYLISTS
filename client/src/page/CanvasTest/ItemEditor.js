@@ -1,16 +1,17 @@
 import { styled } from "@linaria/react";
-import React from "react";
+import React, { useState } from "react";
 
 const ItemEditorContainer = styled.div`
   position: absolute;
-  right: 10px;
-  top: 50px;
+  right: 0px;
+  top: 45px;
   width: 260px;
   height: 500px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   padding: 20px;
   overflow: hidden;
+  margin:5px;
   .elementsList {
     display: flex;
     flex-wrap: wrap;
@@ -37,13 +38,13 @@ const ItemEditorContainer = styled.div`
   }
 `;
 
-const ElementBox = () => {
+const ElementBox = ({element}) => {
   const isAppended = true;
   return (
     <div className="elementCard">
       <div className="img"></div>
       이름
-      <button> {isAppended ? "추가" : "삭제"}</button>
+      <button > {isAppended ? "추가" : "삭제"}</button>
     </div>
   );
 };
