@@ -132,8 +132,8 @@ const ElementList = styled.div`
     position: relative;
     grid-area: elementlist;
     align-items: center;
-    width: 400px;
-    height: 1200px;
+    /* width: 400px;
+    height: 1200px; */
     /* left: auto; */
     /* border-radius: 10px; */
     margin: auto;
@@ -173,10 +173,12 @@ const Element = styled.li`
     cursor: move;
     color: black;
     width: 45%;
-    height: 250px;
+    height: 150px;
     border-radius: 5px;
     /* padding: 1em; */
     margin: auto;
+    /* margin-bottom: 15px; */
+    margin-block: 15px;
     user-select: none;
     background-color: lightblue;
     `
