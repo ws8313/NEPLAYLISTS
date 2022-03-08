@@ -3,14 +3,17 @@ import React, { useRef, useState } from "react"
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { useDrag } from "react-use-gesture"
 import { TransformControls } from "@react-three/drei"
+import Modern_furniture from './Modern_furniture'
 
-export default function Draggable() {
+
+//저장버튼 누르면, Draggable의 ~~가 저장됨.
+export default function Draggable({show}) {
   const { size, viewport } = useThree()
   const ref = useRef();
   const [position,setPosition] = useState([0,0,0])
-
+  // const [show, setShow] = useState(false)
   const aspect = size.width / viewport.width 
-  
+
   useFrame(()=>{
     // ref.current.rotation.z += 0.01
     // ref.current.rotation.x += 0.01    
@@ -22,10 +25,13 @@ export default function Draggable() {
   }, {pointerEvents : true})
 
   return (
+    <>{ show? 
     <mesh position={position} {...bind()} ref={ref}>
       <boxBufferGeometry attatch="geometry"  args={[10,10,10]}/>
       <meshLambertMaterial attatch="material" color="orange" />
-    </mesh>
+    </mesh> : <></>
+  }
+  </>
   )
 }
 

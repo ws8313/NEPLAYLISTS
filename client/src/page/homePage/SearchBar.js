@@ -119,12 +119,16 @@ export default function SearchBar() {
   const [isShow, setIsShow] = useState(false);
   const [searchResult, setSearchResult] = useState([
   ]);
+
+//현재 token 받아올 수가 없어서, 임시로 넣어둔 상태
+  localStorage.setItem("token","token")
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      
       const formData = new FormData();
       formData.append('keyword',searchValue)
-      axios.post(`${url}/find`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
+      axios.post(`${url}/find`,formData, { headers : {'Content-Type': 'multipart/form-data',} })
       .then((res)=>{
         setSearchResult(res.data.searchlist)
       })
