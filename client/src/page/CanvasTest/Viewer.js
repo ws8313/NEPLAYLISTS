@@ -2,13 +2,12 @@ import React, { Suspense, useState } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import Modern_furniture from "./Modern_furniture"
 // import {useBox} from "use-canon"
 import ItemEditor from "./ItemEditor";
 import styled from "styled-components";
-import Draggable from "./Draggable";
+// import Draggable from "./Draggable";
 import IsometricRoom from './Isometric_room'
-
+import DragTest from "./DragTest";
 const CanvasContainer = styled.div`
   height:calc(100vh - 46px);
 `;
@@ -52,7 +51,7 @@ export default function Viewer({edit}) {
           {/* 만약 추가 패이지 자체는 링크로 두고,  */}
           {/* <Room /> */}
           <IsometricRoom receiveShadow/>
-          <Draggable show={edit} />
+        <DragTest edit={edit}/>
         </Suspense>
       </Canvas>
     </CanvasContainer>

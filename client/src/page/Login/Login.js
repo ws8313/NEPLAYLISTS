@@ -78,7 +78,8 @@ function Login() {
         localStorage.setItem('jwt-token', res.token);
       }
     })
-  } 
+  }
+  
   return (
     <LoginContainer>
       <div className="leftSlide"></div>
