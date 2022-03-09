@@ -51,7 +51,7 @@ export default function Viewer({edit}) {
         <Suspense fallback={null}>
           {/* 만약 추가 패이지 자체는 링크로 두고,  */}
           {/* <Room /> */}
-          <IsometricRoom receiveShadow/>
+          {/* <IsometricRoom receiveShadow/> */}
         <DragTest edit={edit}/>
         </Suspense>
       </Canvas>
