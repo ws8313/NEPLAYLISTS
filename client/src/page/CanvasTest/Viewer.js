@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { ContactShadows, Environment, OrbitControls, softShadows, Stage, Stars } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -66,37 +66,37 @@ export default function Viewer({edit}) {
         shadow-mapSize-height={2048}
         castShadow 
         />
-        <spotLight 
+        <directionalLight 
         position={[71.429, 158.63, -39.989]} 
-        intensity={0.1}
+        intensity={0.05}
         angle={0.9} 
         color="white" 
         penumbra={1} 
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        castShadow 
+        // castShadow 
         />
-        <spotLight 
+        <directionalLight 
         position={[14.199, 240.66, -83.942]} 
-        intensity={0.1}
+        intensity={0.05}
         angle={0.9} 
         color="white" 
         penumbra={1} 
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        castShadow 
+        // castShadow 
         />
         <rectAreaLight 
         width={50}
         height={80}
         color="#337882" 
-        intensity={50}
+        intensity={20}
         position={[-90, 60, -30]} 
         rotation={[1.3, -1.8, 0]}
         // penumbra={10} 
-        castShadow
+        // castShadow
         />
-        <ambientLight intensity={0.1}/>
+        <ambientLight intensity={0.06}/>
         {/* 한쪽 방향에서 빛을 줌 */}
         <OrbitControls 
           minPolarAngle = { edit ? Math.PI/4 : -Math.PI/2 }

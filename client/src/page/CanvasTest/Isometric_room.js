@@ -149,7 +149,7 @@ export default function Model({ ...props }) {
                 material={materials['Material.008']}
               />
               <Html 
-              rotation={[Math.PI / 2, 4.72, 0]} 
+              rotation={[Math.PI / 2, -4.72, 0]} 
               scale={[0.25, 1.1, 1]} 
               transform 
               >
