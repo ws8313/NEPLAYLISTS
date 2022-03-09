@@ -16,6 +16,7 @@ const Container = styled.div`
     height: 50px;
   }
 `
+
 export default function PlayBtns({music, setNowPlaying, nowPlaying}) { 
   const audioPlayer = useRef();
   const audio = new Audio(music.audio)

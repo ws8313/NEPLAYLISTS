@@ -1,26 +1,13 @@
-import React from 'react'
-import * as THREE from 'three'
-import ReactDOM from 'react-dom'
-import { Canvas, extend, useThree } from '@react-three/fiber'
-import { DragControls } from 'three/examples/jsm/controls/DragControls'
-// import './styles.css'
-
-extend({ DragControls })
-
-const ex = new THREE.Mesh(new THREE.BoxGeometry(100, 100, 100), new THREE.MeshBasicMaterial({ color: 0xff00ff }))
-
-export default function DragTest({edit}) {
-  const {
-    camera,
-    gl: { domElement }
-  } = useThree()
+import React from "react";
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+export default function DragTest() {
+  var objects = [];
+  const gltf = useLoader(GLTFLoader, "/low_poly_isometric_rooms/scene.gltf");
 
   return (
     <>
-      <primitive object={ex} />
-      {edit ?
-      <dragControls args={[[ex], camera, domElement]} /> : <></>}
+      <primitive position={[0, 0, 0]} object={gltf.scene} scale={1} rotation={[0,Math.PI/2,0]} />
     </>
-  )
+  );
 }
-

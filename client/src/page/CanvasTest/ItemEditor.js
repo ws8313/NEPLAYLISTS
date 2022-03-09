@@ -54,7 +54,7 @@ export default function ItemEditor() {
     <ItemEditorContainer>
       <h3>Elements</h3>
       <div className="elementsList">
-        <ElementBox></ElementBox>
+        <ElementBox></ElementBox> 
         <ElementBox></ElementBox>
         <ElementBox></ElementBox>
         <ElementBox></ElementBox>
@@ -62,3 +62,4 @@ export default function ItemEditor() {
     </ItemEditorContainer>
   );
 }
+//ElementBox에 redux로 element 가져와서 넣어야 함

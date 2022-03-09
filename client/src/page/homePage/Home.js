@@ -47,7 +47,7 @@ export default function Home() {
           <Playlist />
         </>
       )}
-    
+          {/* <PlayBtns music, setNowPlaying, nowPlaying={nowPlaying}/> */}
           <EditBtn onClick={() =>setEdit(!edit)}>Edit 하기</EditBtn>
     </div>
   );

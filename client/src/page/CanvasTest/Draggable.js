@@ -25,12 +25,11 @@ export default function Draggable({show}) {
   }, {pointerEvents : true})
 
   return (
-    <>{ show? 
+    <>
     <mesh position={position} {...bind()} ref={ref}>
       <boxBufferGeometry attatch="geometry"  args={[10,10,10]}/>
       <meshLambertMaterial attatch="material" color="orange" />
-    </mesh> : <></>
-  }
+    </mesh> 
   </>
   )
 }

@@ -4,13 +4,15 @@ import './App.css';
 import Home from './page/homePage/Home';
 import React from 'react';
 import Viewer from './page/CanvasTest/Viewer';
+import Login from './page/Login/Login';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route exact path='/' element = { <Home /> }/>
+      <Route exact path='/login' element = { <Login /> }/>
+      <Route exact path='/' element = { <Home /> }/>
       </Routes>
       </BrowserRouter>
     </div>

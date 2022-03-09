@@ -1,5 +1,5 @@
 import axios from "axios"
-
+//axios middleware
 const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com";
 
 export const postRequestWithJwtToken = (address,data,func) =>{
