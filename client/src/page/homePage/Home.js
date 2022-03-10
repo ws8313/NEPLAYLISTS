@@ -5,16 +5,17 @@ import Room from "./Room";
 import SearchBar from "./SearchBar";
 import Header from "../../component/header/Header";
 import Viewer from "../CanvasTest/Viewer";
-
+import CanvasContainer from "./Canvas/CanvasContainer";
 import { styled } from "@linaria/react";
 import { useSelector, useDispatch } from "react-redux";
+import EditMenu from "./EditMenu";
 import {
   addMusic,
   deleteMusic,
   changeNowPlaying,
 } from "../../redux/actions/playlist";
 import ItemEditor from "../CanvasTest/ItemEditor";
-import PlayBtns from "./Room/PlayBtns";
+// import PlayBtns from "./Canvas/PlayBtns";
 
 export default function Home() {
   const [edit, setEdit] = useState(false);
@@ -26,6 +27,8 @@ export default function Home() {
     };
   });
 
+  const [isLogined, setIsLogined] = useState(true)
+  
   const EditBtn = styled.button`
     position:absolute;
     right:0;
@@ -34,12 +37,13 @@ export default function Home() {
     width:300px;
     margin:5px;
   `
+
   return (
     <div>
-      <Header />
-      <Viewer edit={edit} />
+      <Header isLogined={isLogined} setIsLogined={setIsLogined}/>
+      <CanvasContainer edit={edit} />
       {edit ? (
-        <ItemEditor />
+        <EditMenu />
       ) : (
         <>
           <SearchBar />

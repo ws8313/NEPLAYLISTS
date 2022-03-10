@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import './App.css';
 import Home from './page/homePage/Home';
 import React from 'react';
-import Viewer from './page/CanvasTest/Viewer';
 import Login from './page/Login/Login';
 
 function App() {

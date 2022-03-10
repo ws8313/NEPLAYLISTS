@@ -91,9 +91,9 @@ const ResultList = ({ result }) => {
       let formData = new FormData();
       formData.append('title',music.title)
       formData.append('musician',music.musician)
-      axios.post(`${url}/add-music`,formData, { headers : {'Content-Type': 'multipart/form-data'} })
+      axios.post(`${url}/add-music`,formData, { headers : {'Content-Type': 'multipart/form-data',} })
       .then((res)=>{
-        console.log("response는",res.data.musicInfo);
+        console.log("response가",res.data.musicInfo);
         dispatch(addMusic((res.data.musicInfo)));
       })
     } catch (e){
@@ -128,7 +128,9 @@ export default function SearchBar() {
       
       const formData = new FormData();
       formData.append('keyword',searchValue)
-      axios.post(`${url}/find`,formData, { headers : {'Content-Type': 'multipart/form-data',} })
+      formData.append('Authorization', localStorage.getItem("access-token"))
+      
+      axios.post(`${url}/find`,formData, { headers : {'Content-Type': 'multipart/form-data',  } })
       .then((res)=>{
         setSearchResult(res.data.searchlist)
       })

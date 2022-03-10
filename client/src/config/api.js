@@ -18,7 +18,8 @@ export const networkService = {
     // request
     axiosInstance.interceptors.request.use(
       (config) => {
-        config.headers.Authorization = localStorage.getItem("token");
+        config.headers.Authorization = localStorage.getItem("access-token");
+        console.log("잘됨");
         return config;
       },
       (error) => {

@@ -159,8 +159,3 @@ export default function Playlist() {
     </MusicContainer>
   );
 }
-
-  // anti-pattern
-  // camelcase playList
-  // jsx를 return 하는 함수나 객체는 무조건 대문자로 시작해야 합니다.
-  // component는 무조건 component가 리턴해야합니다.

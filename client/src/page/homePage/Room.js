@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from "react";
 // import { styled } from "@linaria/react";
-import PlayBtns from './Room/PlayBtns';
+// import PlayBtns from './Canvas/PlayBtns';
 import { setNowPlaying } from "../../redux/actions/playlist";
 import { useDispatch, useSelector } from "react-redux";
 
