@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { ContactShadows, Environment, OrbitControls, softShadows, Stage, Stars } from "@react-three/drei";
+import { ContactShadows, Environment, OrbitControls, Reflector, softShadows, Stage, Stars } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import ItemEditor from "./ItemEditor";
 import styled from "styled-components";
@@ -30,16 +30,17 @@ export default function Viewer({edit}) {
         castShadow
         /> */}
         {/* <pointLight 
-        // color="white" 
+        color="white" 
         intensity = {0.5} 
-        position={[0, 0, 0]} 
+        position={[0, 300, 0]} 
+        // lookAt={[0, 0, 0]}
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         castShadow 
         /> */}
         <spotLight 
         position={[82.123, 106.57, -184.02]} 
-        intensity={0.1}
+        intensity={0.3}
         angle={0.9} 
         color="white" 
         penumbra={1} 
@@ -47,37 +48,41 @@ export default function Viewer({edit}) {
         shadow-mapSize-height={2048}
         castShadow 
         />
-        <directionalLight 
+        {/* <directionalLight 
         position={[71.429, 158.63, -39.989]} 
-        intensity={0.05}
+        intensity={0.1}
         angle={0.9} 
         color="white" 
         penumbra={1} 
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         // castShadow 
-        />
-        <directionalLight 
+        /> */}
+        {/* <directionalLight 
         position={[14.199, 240.66, -83.942]} 
-        intensity={0.05}
+        intensity={0.1}
         angle={0.9} 
         color="white" 
         penumbra={1} 
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         // castShadow 
-        />
+        /> */}
         <rectAreaLight 
-        width={50}
-        height={80}
-        color="#337882" 
-        intensity={20}
-        position={[-90, 60, -30]} 
-        rotation={[1.3, -1.8, 0]}
-        // penumbra={10} 
-        // castShadow
+        width={110}
+        height={10}
+        color="#0000FF" 
+        intensity={30}
+        position={[-88.8, 40, -32]} 
+        rotation={[0, -1.57, 0]}
         />
-        <ambientLight intensity={0.06}/>
+        <pointLight 
+        color="#0000FF"
+        intensity={0.4}
+        position={[-70, 100, -23]}
+        />
+          
+        <ambientLight intensity={0.1}/>
         {/* 한쪽 방향에서 빛을 줌 */}
         <OrbitControls 
           minPolarAngle = { edit ? Math.PI/4 : -Math.PI/2 }

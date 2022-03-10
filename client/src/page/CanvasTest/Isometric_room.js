@@ -7,7 +7,7 @@ title: Isometric bedroom
 */
 
 import React, { useRef } from 'react'
-import { Html, useGLTF } from '@react-three/drei'
+import { Html, useGLTF, Reflector } from '@react-three/drei'
 
 export default function Model({ ...props }) {
   const group = useRef()
@@ -59,6 +59,7 @@ export default function Model({ ...props }) {
                 material={materials['Material.002']}
               />
             </group>
+          
             <group position={[82.78, 9.3, -88.12]} rotation={[-1.37, 0, 0]} scale={[104.96, 111.7, 104.96]}>
               <mesh
               
@@ -67,8 +68,8 @@ export default function Model({ ...props }) {
                 geometry={nodes.Cube003_Material003_0.geometry}
                 material={nodes.Cube003_Material003_0.material}
               />
-              {/* <mesh
-              StandardMaterial attach="material" color="white" /> */}
+              <mesh
+              StandardMaterial attach="material" color="white" />
             </group>
             <group position={[68.18, 18.6, 37.73]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
               <mesh
