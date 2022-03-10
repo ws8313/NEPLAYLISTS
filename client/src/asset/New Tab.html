@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/dashboard.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>New Tab</title>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/css/style.min.css">
+<style type="text/css" id="font-override"></style><style type="text/css">.dashlinks{flex:0 0 auto;order:5}.dashlinks-icon-wrapper{height:100%;min-height:60px;max-height:var(--max-height);padding:0 var(--side-padding);display:inline-flex;flex-direction:row;align-items:center;opacity:.85;cursor:pointer;filter:drop-shadow(0 1px 5px rgba(0, 0, 0, .1));transition:opacity .1s ease}.dashlinks-icon-wrapper:hover{opacity:1}.dashlinks-icon-wrapper:active{opacity:.9;transition-duration:0s}.dashlinks .dashlinks-icon{height:18px;width:18px;margin:0;fill:#fff!important;vertical-align:-4%}</style><style type="text/css" data-vue-ssr-id="767c32bc:0">.weather { order: 0; }
+	.weather .app-dash { cursor: pointer; order: 1; } /* Predetermined order for flex item (should be first) */
+
+	.weather .location { outline: none; }
+	.weather .unit { display: block; position: absolute; left: 100%; top: 5px; animation: fadeout 4s ease 4s 1 normal; animation-fill-mode: forwards; font-size: 55%; text-transform: uppercase; }
+		.weather .unit.hide { display: none; }
+
+
+		.weather .metric-stat .icon-weather { margin-right: 6px; }
+
+			.weather.no-location .metric-stat .icon-weather { margin-right: 0; }
+			.weather.no-location .metric-stat .weather-degree { display: none; }
+
+	.weather .icon:before { content: attr(data-icon); font-family: "MeteoconsRegular"; line-height: 0.5em; }
+	@font-face { font-family: "MeteoconsRegular"; src: url(data:font/woff2;base64,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) format("woff2"); font-weight: normal; font-style: normal; }
+
+	.weather .app { width: 440px; padding-bottom: calc(var(--app-padding) - 3px); right: 7px; }
+		.weather.no-location .app { min-height: 230px; }
+			.weather.no-location:not(.setting-location) .app { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+	.weather .icon-angle-down { position: absolute; top: 10px; right: 10px; font-size: 14px; opacity: 0; }
+		.weather .active .icon-angle-down { transform: rotate(180deg); }
+
+
+	.weather .weather-empty { padding: 0; display: none; }
+		.weather.no-location:not(.setting-location) .weather-empty { display: flex; flex-direction: column; align-items: center; }
+		.weather-empty .title { margin-bottom: 10px; }
+		.weather-empty .button { display: flex; justify-content: center; align-items: center; }
+			.weather-empty .button .weather-location-reset-icon { margin-right: 6px; }
+		.weather-empty .set-manual-location .description { margin: 0; opacity: 1; }
+		.weather-empty .find-location { padding: 10px; margin: 0; cursor: pointer; opacity: 0.6; }
+			.weather-empty .find-location:hover { opacity: 0.8; }
+
+	.weather .weather-backround-icon { width: 100%; position: relative; display: none; color: rgba(255, 255, 255, 0.1); font-family: MeteoconsRegular; font-size: 110px; align-items: center; justify-content: center; }
+		.light .weather .weather-backround-icon { color: rgba(0,0,0,0.1); }
+		.weather.setting-location .weather-backround-icon { display: block; }
+
+		.weather .weather-backround-icon > div { padding: 20px; position: absolute; top: 0; right: 0; left: 0; text-align: center; }
+
+	.weather-current { padding-top: 0px !important; }
+
+		.weather-current-header { margin: -3px 0 0; position: relative; display: flex; }
+			.weather.no-location:not(.setting-location) .weather-current-header { display: none; }
+				.weather-current-location { min-width: 0; /* <-- important! do not remove (talk to Dace) */ display: inline-block; flex: 1 1 auto; }
+					.weather .weather-location { display: flex; align-items: center; transition: opacity 0.2s; }
+						.weather.editing .weather-location { opacity: 0; }
+
+						.weather-location-name { min-height: 24px; min-width: 32px; max-width: 310px; margin-right: 5px; display: inline; flex: 0 1 auto; align-self: baseline; cursor: pointer; font-size: 118.75%; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+							.weather-header-message { margin: 0 5px; align-self: baseline; opacity: 0.5; }
+
+						.weather-current-location .loading-icon { margin-left: 6px; display: none; vertical-align: 0; }
+							.weather-current-location.loading .loading-icon { display: inline-block; }
+
+						.weather-location-icon { padding: 3px; cursor: pointer; opacity: 0; }
+							.weather-current-location:not(.loading) .weather-location-icon:hover { opacity: 1; }
+
+						.weather-location-edit { font-size: 13px; }
+							.weather-location-edit .icon-edit { vertical-align: 5%; }
+							.weather-current-location:hover .weather-location-edit { opacity: 0.5; }
+							.editing .weather-location-edit { visibility: hidden; }
+
+
+					.weather .current-location-group { position: absolute; top: -6px; left: 0; right: 0; z-index: -1; opacity: 0; transition: 0.2s opacity; }
+						.weather.editing .current-location-group { z-index: 1; opacity: 1; }
+
+						.weather .icon-row { position: absolute; top: 3px; right: 0; display: flex; align-items: center; }
+
+							.weather .weather-location-reset { display: inline-block; opacity: 0.5; }
+								.weather .current-location-group .weather-location-reset:hover { opacity: 0.7; }
+									.weather .app .weather-location-reset-icon { height: 15px; fill: var(--color-icon); vertical-align: -10%; }
+										.f--quirky .weather .app  .weather-location-reset-icon { vertical-align: -14%; }
+
+
+
+							.weather .current-location-group .input-wrapper { position: relative; }
+								.weather .current-location { font-size: 19px; padding-right: 40px; }
+
+								.weather .clear { padding: 0 5px; bottom: 0; cursor: pointer; font-size: 1rem; }
+									.weather.editing .clear:hover, .weather.editing .clear:active { opacity: 0.7; }
+
+									.weather .clear .icon-wrapper:after { height: 22px; width: 22px; }
+
+						.weather .typeahead .location-dropdown-list { display: none; max-height: 140px; overflow-x: hidden; overflow-y: auto; }
+							.weather .search-loading .typeahead .location-dropdown-list { padding: 0; }
+
+								.weather .typeahead .location-result { margin-right: 2px; }
+
+							.weather .searching { padding: 4px 7px; display: none; font-size: 87.5%; opacity: 0.6; }
+								.weather.search-loading .searching { display: block; }
+								.weather .searching i { animation: blink 1.4s infinite both; }
+									@keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
+									.weather .searching i:nth-child(2) { animation-delay: .2s }
+									.weather .searching i:nth-child(3) { animation-delay: .4s }
+
+								.weather.search-loading .typeahead { padding: 4px 0; }
+								.weather.search-loading .not-found { display: none; }
+
+					.weather-current-conditions { margin: 0 0 10px; display: block; line-height: 1.25; opacity: 0.7; }
+
+			.weather .mobile-close { height: 40px; width: 40px; margin: -8px -10px 0 5px; align-items: center; justify-content: center; }
+				.editing.weather .mobile-close { display: none; } /* Temp: Just going to hide this for now. Fix when we refactor to Vue because the editing state is a huge pain right now. */
+
+		.weather-current-temp-row { margin-bottom: 8px; display: grid; grid-template-columns: 1fr 0.618fr; transition: filter 0.2s; }
+			.plus-weather .weather-current-temp-row { cursor: pointer; }
+			.weather.no-location .weather-current-temp-row { display: none; }
+
+		.weather-current-temp-wrapper { padding-right: 1rem; position: relative; display: flex; align-items: baseline; font-size: 3.75rem; white-space: nowrap; }
+			.f--startup .weather-current-temp-wrapper { padding-top: 10px; }
+			.weather-current-temp-wrapper:hover .icon-angle-down, .weather-current-details:hover .icon-angle-down { opacity: 0.5; }
+
+			.weather-current-icon { width: auto; margin-right: 10px; font-size: 96.667%; line-height: 1; }
+			.weather-current-temp {  }
+			.weather-current-temp-low { margin-left: 2px; font-size: 61.8%; opacity: 0.6; }
+			.weather-current-degree { margin-left: 2px; font-size: 42px; line-height: 60px; opacity: 1; vertical-align: top; }
+
+		.weather-current-details { height: 70px; min-width: 117px; margin: 0; padding-top: 4px; display: flex; flex-direction: column; justify-content: center; position: relative; font-size: 13px; line-height: 135%; transition: opacity 0.2s ease; }
+			.f--startup .weather-current-details { padding-top: 25px; }
+			.weather-current-details .icon-angle-down { right: 0; }
+			.weather-current-details-title { margin-right: 1px; /*margin-bottom: 2px;*/ opacity: 0.6;  }
+			.weather-current-details-value { opacity: 0.9;  }
+			.weather-current-details-value-low { margin-left: 4px; font-size: 11px; line-height: 100%; opacity: 0.6; }
+
+			.weather-arrow { height: 12px; width: 12px; margin-bottom: -1px; margin-left: 2px; fill: var(--color-icon); transform: rotate(90deg); }
+
+
+	.weather-optional { height: 0; opacity: 0; overflow: hidden; transition: all 0.2s ease; }
+		.weather-optional.active { opacity: 1; }
+
+
+	.weather-row { border-top: 1px solid var(--border-color); transition: all 0.2s; }
+		.weather.no-location .weather-row { display: none; }
+
+		.pending .weather-row, .pending .weather-current-temp-row { opacity: 0.2 !important; }
+		.pending .weather-current-conditions { opacity: 0 !important; }
+
+
+	.weather-forecast { display: flex; font-size: 11px; }
+		.weather-forecast-item { flex: 1 1 11%; text-align: center; }
+		.weather-forecast-label { margin-top: 1px; opacity: 0.6; font-size: 10px; font-weight: 500; line-height: 1; text-transform: uppercase; }
+		.weather-forecast-icon { font-size: 19px; }
+		.weather-forecast-high { opacity: 0.85; }
+
+		.weather-hourly { display: flex; align-items: center; }
+			.weather-forecast-hourly { flex-grow: 1; }
+				.weather-forecast-hourly .weather-forecast-label { margin: 0 0 8px; }
+				.weather-forecast-hourly .weather-forecast-high { margin-top: 4px; line-height: 1; }
+
+		.weather-optional.weather-hourly.active { height: 75px; }
+			.f--startup .weather-optional.weather-hourly.active { height: 79px; }
+
+		.weather-forecast-daily { padding: 6px 0; opacity: 0; transition: opacity 0.2s ease; }
+
+			.weather-forecast-daily-wrapper { display: flex; }
+
+				.weather-forecast-daily.active { opacity: 1; }
+
+				.weather-forecast-day { margin: 0 1.5px; padding: 5px 2px; border-radius: 3px; cursor: pointer; white-space: nowrap; }
+					.weather-forecast-day:first-child { margin-left: 0; }
+					.weather-forecast-day:last-child { margin-right: 0; }
+					.weather-forecast-day:hover, .weather-forecast-day.selected { background: rgba(255,255,255,0.09); }
+						.light .weather-forecast-day.selected, .light .weather-forecast-day:hover { background: rgba(0,0,0,0.05); }
+
+					.weather-forecast-daily .weather-forecast-label { margin-bottom: 5px; }
+
+					.weather-forecast-day-details { margin-bottom: 3px; display: flex; align-items: center; justify-content: center; }
+						.weather-forecast-daily .weather-forecast-icon { font-size: 17px; line-height: 14px; }
+						.weather-forecast-daily .weather-forecast-high { padding-right: 0; }
+						.weather-forecast-daily .weather-forecast-low { padding-left: 3px; opacity: 0.4; }
+
+
+
+	.weather-extra { padding: 11px 0; display: flex; font-size: 12px; }
+		.weather-optional.weather-detail.active { height: 90px; }
+
+		.weather-extra-col { flex: 1 1 50%; display: flex; }
+			.weather-extra-col-left { padding-right: 15px; }
+			.weather-extra .spacer { margin-bottom: 4px; }
+
+			.weather-arrow-pressure { height: 9px; width: 9px; margin-bottom: 0; margin-left: -2px; padding-right: 2px; }
+			.weather-air-quality-color { padding-left: 1px; }
+
+
+	.weather-detail-unavailable { padding: 11px 0; display: none; font-size: 13px; text-align: center; }
+		.weather-detail-unavailable.show { display: block; }
+		.weather-detail-unavailable-text { opacity: 0.5; }
+
+
+	.weather .more { /* position: static; margin: calc(-1 * var(--app-padding)) calc(-1 * var(--app-padding)) 0 0; padding: var(--app-padding); */ }
+		.weather.no-location .more { display: none; }
+
+	.weather.editing .more-toggle { display: none; }
+	.weather .more-icon { --icon-size: 15px; }
+		.weather .more-dropdown { width: max-content; top: 35px; right: -1px; } /* width max-content fixes bug where dropdown doesn't expand to fit child content on mobile */
+			.weather .dropdown li { }
+
+
+	.weather-attribution { margin: 0 0 -6px; padding-top: 10px; display: flex; justify-content: flex-end; }
+
+		.weather-attribution-link { margin: -5px 0; padding: 5px; display: inline-flex; align-items: center; opacity: 0.85; border-radius: 3px; font-size: 10px; }
+			.weather-attribution-link:hover { background: rgba(255,255,255,.09); }
+				.light .weather-attribution-link:hover { background: rgba(0,0,0,0.07); }
+
+			.weather-attribution-logo { height: 11px; margin-right: 5px; vertical-align: 0; }
+				.light .weather-attribution-logo { filter: brightness(13%); }
+
+
+.weather .dropdown-list-item { min-width: max-content; }
+	.weather .dropdown-list-label { flex-grow: 1; }
+
+
+@media screen and (max-width: 450px) {
+	.weather-current-temp-wrapper { }
+		.weather-current-icon { margin-right: 6px; }
+		.weather-current-details-title { text-transform: capitalize; }
+
+	.has-mobile-scroll { overflow: visible; }
+		.has-mobile-scroll ::-webkit-scrollbar { display: none; }
+
+		.has-mobile-scroll .list-container { margin: 0 calc(var(--app-padding) * -1); padding: 0 var(--app-padding); overflow: scroll hidden; }
+
+	/* General forecast item */
+	.weather-forecast-item { flex: 0 0 38px; }
+
+	/* Daily forecast row */
+	.weather-forecast-day { flex-grow: 1; }
+		.weather-forecast-day .weather-forecast-label {  }
+		.weather-forecast-day .weather-forecast-icon-wrapper { padding: 4px 0; }
+
+	.weather .icon-row { top: -7px; right: -3px; }
+	.weather .weather-location-reset, .weather .clear { padding: 10px; }
+
+}
+</style><style type="text/css" id="themeCss">:root { --color-hue: 20; --color-sat: 49%; --color-lit: 44%; --color-alpha: 0.95; ;--color-accent-safe: hsla(20 49% 44% / 0.95);}</style><meta id="safariTabTheme" name="theme-color" content="hsla(20 49% 44% / 0.95)"></head>
+<body class="hide-overlay f--default Chrome light light-full">
+<div class="overlay loading-overlay">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="loading-logo" data-test="loading-logo" style="display: none;" fill="#ccc">
+<path d="M256 0C114.615 0 0 114.615 0 256s114.615 256 256 256 256-114.615 256-256S397.385 0 256 0zm122.763 344.309h-15.484v-95.746c0-34.76-18.012-54.983-47.715-54.983-27.176 0-50.875 20.856-50.875 56.879v93.85h-15.484v-96.695c0-33.5-18.327-54.035-47.083-54.035s-51.507 25.28-51.507 57.827v92.9h-15.483V183.151h15.483v28.756c10.428-16.748 24.964-32.548 53.719-32.548 28.124 0 45.5 16.116 54.352 34.76 10.428-18.012 27.807-34.76 58.143-34.76 38.235 0 61.935 26.86 61.935 67.307z"></path>
+</svg>
+</div>
+<div id="main-view" style="visibility: hidden">
+<div class="backgrounds"></div>
+<div class="apps hide-apps">
+<div class="region full"></div>
+<div class="region top-bar"></div>
+<div class="top-row">
+<div class="region top-left" data-test="top-left"><div id="quicklinks" class="app-container quicklinks links" data-test="undefined" style=""><span class="app-dash toggle Links-toggle" data-test="links-app-dash" data-ob="links-app-dash">Links</span><div class="app-wrapper app-placeholder nipple nipple-top-left">
+	<div class="app links-app calculates-own-max-height" style="height:70px; width:260px">
+		<div class="app-placeholder-loading">
+			<i class="loading-icon"></i>Loading...
+		</div>
+	</div>
+	<div class="touch-overlay"></div>
+</div>
+
+</div><div id="dashlinks" class="dashlinks"><!--
+-->
+</div></div>
+<div class="region top-center"></div>
+<div class="region top-right"><div id="weather" class="app-container weather" data-test="weather"><!-- Metric -->
+<div class="app-dash metric-item" title="Partly cloudy" data-test="app-dash">
+	<div class="metric-stat">
+			<span class="icon icon-weather" data-icon="E" title="Partly cloudy"></span><span class="metric-stat-number" data-test="temperature">6</span><span class="weather-degree">°</span><span class="unit hide">c</span>
+	</div>
+	<div class="location metric-label data" data-test="location" title="Namyang-ri">
+		<span class="metric-label-name">Namyang-eup</span>
+	</div>
+	<span class="metric-message"></span>
+</div>
+
+<div class="app-wrapper nipple nipple-top-right">
+	<div class="app weather-app ">
+
+		<!-- Main weather area -->
+		<section class="weather-current">
+
+			<!-- Header -->
+			<header class="weather-current-header">
+
+				<div class="weather-current-location">
+					<div class="weather-location">
+						<span class="weather-location-name" title="Namyang-ri" data-test="location-name">Namyang-eup</span>
+						<i class="loading-icon"></i>
+						<span class="weather-location-icon weather-location-edit" data-test="edit-icon"><i class="icon-edit"></i></span>
+					</div>
+					<div class="input-group current-location-group">
+						<div class="input-wrapper">
+							<input type="text" name="current-location" id="current-location" class="current-location" autocomplete="off" placeholder="Location" value="Namyang-eup" spellcheck="false" data-test="weather-location-search">
+							<span class="icon-row">
+								<span class="weather-location-icon weather-location-reset" title="Use your current location">
+									<svg class="weather-location-reset-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 937.4 937.4"><path d="M887.4,418.7H855.6A390,390,0,0,0,518.7,81.8V50a50,50,0,0,0-100,0V81.8A390,390,0,0,0,81.8,418.7H50a50,50,0,0,0,0,100H81.8A390,390,0,0,0,418.7,855.6v31.8a50,50,0,0,0,100,0V855.6A390,390,0,0,0,855.6,518.7h31.8a50,50,0,0,0,0-100ZM730,518.7h24.4A290.53,290.53,0,0,1,518.6,754.5V730.1a50,50,0,0,0-100,0v24.4A290.53,290.53,0,0,1,182.8,518.7h24.4a50,50,0,0,0,0-100H182.8A290.53,290.53,0,0,1,418.6,182.9v24.4a50,50,0,1,0,100,0V182.9A290.53,290.53,0,0,1,754.4,418.7H730a50,50,0,1,0,0,100Z"></path></svg>
+								</span>
+								<i class="u--flex-center clear" data-test="clear-icon">
+									<span class="icon-wrapper">
+										<svg class="icon icon-cancel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.982 212.982"><path d="M131.804 106.491l75.936-75.936c6.99-6.99 6.99-18.323 0-25.312-6.99-6.99-18.322-6.99-25.312 0L106.491 81.18 30.554 5.242c-6.99-6.99-18.322-6.99-25.312 0-6.989 6.99-6.989 18.323 0 25.312l75.937 75.936-75.937 75.937c-6.989 6.99-6.989 18.323 0 25.312 6.99 6.99 18.322 6.99 25.312 0l75.937-75.937 75.937 75.937c6.989 6.99 18.322 6.99 25.312 0 6.99-6.99 6.99-18.322 0-25.312l-75.936-75.936z"></path></svg></span>
+								</i>
+							</span>
+						</div>
+
+						<div class="dropdown typeahead">
+							<div class="searching">Searching<i>.</i><i>.</i><i>.</i></div>
+							<ul class="dropdown-list location-dropdown-list" data-test="weather-location-results"></ul>
+							<div class="not-found">No locations found.</div>
+						</div>
+					</div>
+
+					<span class="weather-current-conditions">Partly cloudy</span>
+				</div>
+
+				<div class="more">
+					<div class="icon-wrapper more-toggle" data-test="more">
+						<svg class="icon icon-ellipsis more-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><path d="M8 22c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zM52 22c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zM30 22c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8z"></path></svg></div>
+					<div class="dropdown more-dropdown">
+						<ul class="dropdown-list">
+							<li class="dropdown-list-item toggle-hourly has-toggle" data-test="toggle-hourly-button">
+								<span class="dropdown-list-label">
+									Hourly forecast<span class="badge badge-plus">PLUS</span>
+								</span>
+								<span class="toggle-slider"><svg class="toggle-switch" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg></span>
+							</li>
+							<li class="dropdown-list-item toggle-details has-toggle" data-test="toggle-details-button">
+								<span class="dropdown-list-label">
+									Extra weather info<span class="badge badge-plus">PLUS</span>
+								</span>
+								<span class="toggle-slider"><svg class="toggle-switch" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg></span>
+							</li>
+							<li class="line"></li>
+							<li class="dropdown-list-item toggle-metric has-toggle" data-test="toggle-metrics-button">
+								<span class="dropdown-list-label">Metric units</span>
+								<span class="toggle-slider"><svg class="toggle-switch" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg></span>
+							</li>
+							<li class="dropdown-list-item weather-location-edit-menu" data-test="edit-dropdown"><span class="dropdown-list-label">Edit location</span></li>
+						</ul>
+					</div>
+				</div>
+
+				<span class="mobile-close">
+					<span class="icon-wrapper u--mobile-show-bg hide">
+						<svg class="icon icon-hide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 348.333 348.334"><path d="M336.559 68.611L231.016 174.165l105.543 105.549c15.699 15.705 15.699 41.145 0 56.85-7.844 7.844-18.128 11.769-28.407 11.769-10.296 0-20.581-3.919-28.419-11.769L174.167 231.003 68.609 336.563c-7.843 7.844-18.128 11.769-28.416 11.769-10.285 0-20.563-3.919-28.413-11.769-15.699-15.698-15.699-41.139 0-56.85l105.54-105.549L11.774 68.611c-15.699-15.699-15.699-41.145 0-56.844 15.696-15.687 41.127-15.687 56.829 0l105.563 105.554L279.721 11.767c15.705-15.687 41.139-15.687 56.832 0 15.705 15.699 15.705 41.145.006 56.844z"></path></svg>
+					</span>
+				</span>
+			</header>
+
+
+			<div class="weather-current-temp-row">
+				<!-- Main temp -->
+				<div class="weather-current-temp-wrapper toggle-hourly" data-test="toggle-hourly-div">
+					
+					<span class="icon icon-weather weather-current-icon" data-icon="E" title="Partly cloudy"></span>
+
+						<span class="weather-current-temp">6°</span>
+				</div>
+
+				<!-- Main details -->
+			</div>
+
+
+			<!-- Extra weather info -->
+		</section>
+
+
+		<!-- 5-day advance forecast -->
+		<section class="weather-row weather-forecast weather-forecast-daily active">
+			<div class="weather-forecast-item weather-forecast-day" data-day="Wednesday" data-test="forecast-day" title="Hazy sunshine">
+				<div class="weather-forecast-label" data-test="forecast-day-label">Wed</div>
+
+				<div class="weather-forecast-icon-wrapper">
+					<span class="icon icon-weather weather-forecast-icon" data-icon="J"></span>
+				</div>
+
+				<div class="weather-forecast-day-details">
+					<span class="weather-forecast-high" data-test="forecast-high">13°</span><span class="weather-forecast-low">-2°</span>
+				</div>
+			</div>
+			<div class="weather-forecast-item weather-forecast-day" data-day="Thursday" data-test="forecast-day" title="Cloudy">
+				<div class="weather-forecast-label" data-test="forecast-day-label">Thu</div>
+
+				<div class="weather-forecast-icon-wrapper">
+					<span class="icon icon-weather weather-forecast-icon" data-icon="Y"></span>
+				</div>
+
+				<div class="weather-forecast-day-details">
+					<span class="weather-forecast-high" data-test="forecast-high">14°</span><span class="weather-forecast-low">2°</span>
+				</div>
+			</div>
+			<div class="weather-forecast-item weather-forecast-day" data-day="Friday" data-test="forecast-day" title="Turning sunny and mild">
+				<div class="weather-forecast-label" data-test="forecast-day-label">Fri</div>
+
+				<div class="weather-forecast-icon-wrapper">
+					<span class="icon icon-weather weather-forecast-icon" data-icon="H"></span>
+				</div>
+
+				<div class="weather-forecast-day-details">
+					<span class="weather-forecast-high" data-test="forecast-high">17°</span><span class="weather-forecast-low">3°</span>
+				</div>
+			</div>
+			<div class="weather-forecast-item weather-forecast-day" data-day="Saturday" data-test="forecast-day" title="Rain and drizzle in the a.m.">
+				<div class="weather-forecast-label" data-test="forecast-day-label">Sat</div>
+
+				<div class="weather-forecast-icon-wrapper">
+					<span class="icon icon-weather weather-forecast-icon" data-icon="Q"></span>
+				</div>
+
+				<div class="weather-forecast-day-details">
+					<span class="weather-forecast-high" data-test="forecast-high">18°</span><span class="weather-forecast-low">10°</span>
+				</div>
+			</div>
+			<div class="weather-forecast-item weather-forecast-day" data-day="Sunday" data-test="forecast-day" title="Cooler with periods of rain">
+				<div class="weather-forecast-label" data-test="forecast-day-label">Sun</div>
+
+				<div class="weather-forecast-icon-wrapper">
+					<span class="icon icon-weather weather-forecast-icon" data-icon="R"></span>
+				</div>
+
+				<div class="weather-forecast-day-details">
+					<span class="weather-forecast-high" data-test="forecast-high">13°</span><span class="weather-forecast-low">7°</span>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- Empty state -->
+		<div class="weather-empty empty">
+			<div class="title">See the weather for your area</div>
+			<div class="description">Enter your location to get started</div>
+			<button class="button set-manual-location">
+				<div class="description" data-test="manual-location">Enter Location</div>
+			</button>
+		</div>
+		<div class="weather-backround-icon">
+			<div>H</div>
+		</div>
+
+		<!-- Accuweather CTA -->
+		<section class="weather-row weather-attribution">
+			<a class="weather-attribution-link" href="https://www.accuweather.com/en/kr/namyang-ri/3355007/current-weather/3355007?lang=en-us&amp;partner=momentum" target="_blank"><img class="weather-attribution-logo" src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/img/logo-accuweather.png"> More weather →</a>
+		</section>
+
+	</div>
+	<div class="touch-overlay"></div>
+</div>
+</div></div>
+</div>
+<div class="region center-above"></div>
+<div class="region center"></div>
+<div class="region center-below"></div>
+<div class="bottom-row">
+<div class="region bottom-left" id="bottom-left"><div id="settings" class="app-container settings" data-test="settings" data-justboundclickoutsidehandler="false" data-clickoutsidemouseuphandlerid="g9i9qr" data-clickoutsidemousedownhandlerid="7kn7mp"><span class="app-dash toggle" data-test="settings-toggle" data-ob="settings-toggle"><svg class="toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340.274 340.274"><path d="M293.629 127.806l-5.795-13.739c19.846-44.856 18.53-46.189 14.676-50.08l-25.353-24.77-2.516-2.12h-2.937c-1.549 0-6.173 0-44.712 17.48l-14.184-5.719c-18.332-45.444-20.212-45.444-25.58-45.444h-35.765c-5.362 0-7.446-.006-24.448 45.606l-14.123 5.734C86.848 43.757 71.574 38.19 67.452 38.19l-3.381.105-27.27 26.737c-4.138 3.891-5.582 5.263 15.402 49.425l-5.774 13.691C0 146.097 0 147.838 0 153.33v35.068c0 5.501 0 7.44 46.585 24.127l5.773 13.667c-19.843 44.832-18.51 46.178-14.655 50.032l25.353 24.8 2.522 2.168h2.951c1.525 0 6.092 0 44.685-17.516l14.159 5.758c18.335 45.438 20.218 45.427 25.598 45.427h35.771c5.47 0 7.41 0 24.463-45.589l14.195-5.74c26.014 11 41.253 16.585 45.349 16.585l3.404-.096 27.479-26.901c3.909-3.945 5.278-5.309-15.589-49.288l5.734-13.702c46.496-17.967 46.496-19.853 46.496-25.221V151.88c-.005-5.519-.005-7.446-46.644-24.074zM170.128 228.474c-32.798 0-59.504-26.187-59.504-58.364 0-32.153 26.707-58.315 59.504-58.315 32.78 0 59.43 26.168 59.43 58.315-.006 32.177-26.656 58.364-59.43 58.364z" fill="#FFF"></path></svg></span></div></div>
+<div class="region bottom"></div>
+<div class="region bottom-right"><div id="todo" class="app-container todo" data-test="todo" style=""><div class="app-wrapper app-placeholder nipple nipple-bottom-right">
+	<div class="app todo-app calculates-own-max-height" style="height:251px; width:320px">
+		<div class="app-placeholder-loading">
+			<i class="loading-icon"></i>Loading...
+		</div>
+	</div>
+	<div class="touch-overlay"></div>
+</div>
+<span class="app-dash toggle Todo-toggle" data-test="todo-app-dash" data-ob="todo-app-dash">Todo</span>
+</div></div>
+</div>
+</div>
+<div class="overlay drop-overlay">
+<p>Drop to upload backgrounds <span class="badge badge-plus">PLUS</span></p>
+</div>
+</div>
+<script src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/app/globals.js"></script>
+<script src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/js/lib.min.js"></script>
+<script src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/app/es6.js"></script>
+<script src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/app/app.min.js"></script>
+
+
+<script type="text/javascript" async="" src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/app/1369894c-efef-4d5f-9bd6-3e136e09c5e8.js" id="1369894c-efef-4d5f-9bd6-3e136e09c5e8"></script><script type="text/javascript" async="" src="chrome-extension://laookkfknpbbblfpciffpaejjkokdgca/app/7d9ace94-8620-4bc0-9160-fcc15d4cb578.js" id="7d9ace94-8620-4bc0-9160-fcc15d4cb578"></script></body></html>
