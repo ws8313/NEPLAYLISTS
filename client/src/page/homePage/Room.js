@@ -75,9 +75,10 @@ const Container = styled.div`
   display:flex;
   margin: auto;
   justify-content: center;
+  
   button {
     color:white;
-    margin:0 ;
+    margin:0;
     background-color:rgba(0,0,0,0.7);
     width:100px;
     height: 50px;

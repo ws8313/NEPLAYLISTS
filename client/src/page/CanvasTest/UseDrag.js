@@ -9,7 +9,6 @@ export default function Model({ show }) {
   const aspect = size.width / viewport.width;
   const { nodes, materials } = useGLTF('/isometric_room.gltf')
 
-  // function Obj1() {
     const ref = useRef();
     const [position, setPosition] = useState([0, 0, 0]);
     const bind = useDrag(

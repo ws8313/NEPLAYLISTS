@@ -16,7 +16,6 @@ export default function DragTest({edit}) {
   const ex = []
   const isome= useLoader(GLTFLoader, "/isometric_bedroom/scene.gltf");
   const low= useLoader(GLTFLoader, "/low_poly_isometric_rooms/scene.gltf");
-  // console.log(isome);
   
   ex.push(isome.scene)
   ex.push(low.scene)  

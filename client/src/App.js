@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import './App.css';
 import Home from './page/homePage/Home';
 import React from 'react';
-import Login from './page/Login/Login';
+// import Login from './page/Login/Login';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <Routes>
-      <Route exact path='/login' element = { <Login /> }/>
       <Route exact path='/' element = { <Home /> }/>
       </Routes>
       </BrowserRouter>
