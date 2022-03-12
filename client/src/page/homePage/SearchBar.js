@@ -142,6 +142,7 @@ const ResultList = ({ result }) => {
           music["lyrics"] = res.data.musicInfo.lyrics
           music["category"] = res.data.musicInfo.category
           music["id"] = res.data.musicInfo.musicid
+          music["url"] = res.data.musicInfo.audio
           dispatch(addMusic(music));
         });
     } catch (e) {

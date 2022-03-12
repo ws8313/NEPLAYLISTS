@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { styled } from "@linaria/react";
 import { AiFillCaretRight, AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import {
 } from "../../redux/actions/playlist";
 import axios from "axios";
 import { GrPowerCycle } from "react-icons/gr";
+// import { useEffect } from "react/cjs/react.production.min";
 
 const MusicContainer = styled.ul`
   ::-webkit-scrollbar {
@@ -83,7 +84,7 @@ const MusicContainer = styled.ul`
       font-size: xx-large;
       path {
         stroke: rgba(150, 150, 150, 1);
-        margin : auto;
+        margin: auto;
       }
       * {
         margin: auto;
@@ -92,8 +93,7 @@ const MusicContainer = styled.ul`
   }
 `;
 
-const url =
-  "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
+const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 
 const MusicCard = ({
   music,
@@ -110,24 +110,21 @@ const MusicCard = ({
       delete_Music(idx);
     }
   };
+  const [isAnalyzed, setIsAnalyzed] = useState(0);
 
-  const [isAnalyzed, setIsAnalyzed] = useState(false);
-  console.log("is",music.id);
-  // if(music.id != -1 ) {
-  // const analyzeLyrics = setInterval(function () {
-  //   axios
-  //     .get(`${url}/api/analysis/${music.id}`, { timeout: 20000 })
-  //     .then((res) => {
-  //       // if (res.data.state) {
-  //         // 플레이리스트에 카테고리 넣는 dispatch
-  //         // set_Category(idx, res.data.category);
-  //         console.log(res);
-  //         setIsAnalyzed(true);
-  //         clearInterval(analyzeLyrics);
-  //       })
-  //     }, 10000);
-  // });
-  // }
+  // Music Card가 새로 rendering 될 때마다, 시행됨.. 딱 추가 되고 한번만 시행 되어야 할 거 같은데
+  const checkAnalyzed = () =>{
+    axios
+      .get(`${url}/api/analysis/${music.id}`, { timeout: 20000 })
+      .then((res) => {
+        if (res.data.state) {
+          // 플레이리스트에 카테고리 넣는 dispatch
+          set_Category(idx, res.data.category);
+          setIsAnalyzed(1);          
+        }
+      })
+  }
+
   return (
     <li>
       <img src={music.albumImage} />
@@ -135,15 +132,16 @@ const MusicCard = ({
         <h3>{music.title}</h3>
         {music.musician}
       </div>
-      {isAnalyzed ? (
+      { isAnalyzed ? (
         <button onClick={() => set_NowPlaying(idx)}>
           <AiFillCaretRight />
         </button>
       ) : (
-        <button disabled>
+        <button onClick={()=> checkAnalyzed()}>
           <GrPowerCycle color="white" />
         </button>
       )}
+
       <button onClick={() => handleDelete(idx)}>
         <AiOutlineClose />
       </button>
