@@ -124,7 +124,7 @@ const ResultList = ({ result }) => {
       formData.append("title", music.title);
       formData.append("musician", music.musician);
       axios
-        .post(`${url}:3306/api/add-music`, formData, {
+        .post(`${url}:api/add-music`, formData, {
           timeout: 10000,
           headers: { "Content-Type": "multipart/form-data" },
           //"Authorization" : localStorage.getItem('token')
@@ -174,7 +174,7 @@ export default function SearchBar() {
       formData.append("Authorization", localStorage.getItem("access-token"));
 
       axios
-        .post(`${url}:3306/api/find`, formData, {
+        .post(`${url}/api/find`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {

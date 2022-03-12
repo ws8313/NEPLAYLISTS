@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Lyrics from "./Lyrics";
 import Playlist from "./Playlist";
-import Room from "./Room";
+// import Room from "./Room";
 import SearchBar from "./SearchBar";
 import Header from "../../component/header/Header";
 import CanvasContainer from "./Canvas/CanvasContainer";

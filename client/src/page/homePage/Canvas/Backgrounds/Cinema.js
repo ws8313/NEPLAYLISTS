@@ -5,10 +5,12 @@ import React from "react";
 export default function Model({ edit }) {
   const model = useLoader(GLTFLoader, "/Cinema/scene.gltf");
   return (
-  <primitive
+  <primitive 
+    castShadow={true}
+    receiveShadow={true}
     position={[0, 0, 0]}
     object={model.scene}
-    scale={10}
+    scale={1}
     rotation={[0, 0, 0]}
   />
   )
