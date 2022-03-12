@@ -5,7 +5,6 @@ import ReactPlayer from "react-player";
 
 export default function PlayBox({music}) {
   const [isShow, setIsShow] = useState(true);
-  const [curUrl, setCurUrl] = useState();
   const [url, setUrl] = useState();
 
   const { nowPlaying, state } = useSelector((state) => {
@@ -22,19 +21,16 @@ export default function PlayBox({music}) {
       videoUrl = videoUrl.replace(".", "");
       videoUrl = videoUrl.substring(0,15) + ".com/embed" + videoUrl.substring(15);
       setUrl(videoUrl)
-      console.log(url, videoUrl, isShow)
-      // document.getElementById("player").contentWindow.location.reload();
     }
-  }, [url])
+  }, [url, nowPlaying])
   
   const clickHandler = () => {
     setIsShow(!isShow);
-    console.log(url, curUrl, isShow)
+    console.log(url, isShow)
   }
   
   return (
     <div
-      id="player"
       style={{
         position: "absolute",
         bottom: 0,
@@ -70,6 +66,7 @@ export default function PlayBox({music}) {
       ></ReactPlayer>
 
       {/* <iframe 
+      id="player"
       width={"100%"}
       height={isShow? "0":"100%"}
       src={url} 
