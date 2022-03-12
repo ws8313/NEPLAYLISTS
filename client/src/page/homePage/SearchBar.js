@@ -123,18 +123,25 @@ const ResultList = ({ result }) => {
       let formData = new FormData();
       formData.append("title", music.title);
       formData.append("musician", music.musician);
+      formData.append("albumImage", music.albumImage);
+      
+      formData.append("Authorization", localStorage.getItem("access_token"));
+      // 유저 ID 가져오고, 유튜브 링크 추가로 가져오고, 
+      // 최초 : Title이랑 가수, 가사 
+
+      // playlist 에서는 가사 가져오고, 카테고리, state,
+      // analysis에서   
+      //   
       axios
         .post(`${url}/api/add-music`, formData, {
           timeout: 10000,
           headers: { "Content-Type": "multipart/form-data" },
-          //"Authorization" : localStorage.getItem('token')
         })
+        
         .then((res) => {
-
-          music["lyrics"] = res.data.lyrics
-          music["category"] = res.data.category
-          music["musicid"] = res.data.musicid
-          console.log(music);
+          music["lyrics"] = res.data.musicInfo.lyrics
+          music["category"] = res.data.musicInfo.category
+          music["id"] = res.data.musicInfo.musicid
           dispatch(addMusic(music));
         });
     } catch (e) {
@@ -172,7 +179,7 @@ export default function SearchBar() {
       const formData = new FormData();
       formData.append("keyword", searchValue);
       formData.append("Authorization", localStorage.getItem("access-token"));
-
+      // formData.append("Authorization", localStorage.getItem("access-token"));
       axios
         .post(`${url}/api/find`, formData, {
           headers: { "Content-Type": "multipart/form-data" },

@@ -112,21 +112,22 @@ const MusicCard = ({
   };
 
   const [isAnalyzed, setIsAnalyzed] = useState(false);
-
+  console.log("is",music.id);
+  // if(music.id != -1 ) {
   // const analyzeLyrics = setInterval(function () {
   //   axios
-  //     .get(`${url}:3306/api/analysis/${music.id}`, { timeout: 10000 })
+  //     .get(`${url}/api/analysis/${music.id}`, { timeout: 20000 })
   //     .then((res) => {
   //       // if (res.data.state) {
   //         // 플레이리스트에 카테고리 넣는 dispatch
   //         // set_Category(idx, res.data.category);
-
+  //         console.log(res);
   //         setIsAnalyzed(true);
   //         clearInterval(analyzeLyrics);
-  //       // }
-  //     }, 5000);
+  //       })
+  //     }, 10000);
   // });
-
+  // }
   return (
     <li>
       <img src={music.albumImage} />

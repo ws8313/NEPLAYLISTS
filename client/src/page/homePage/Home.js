@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Lyrics from "./Lyrics";
 import Playlist from "./Playlist";
-// import Room from "./Room";
 import SearchBar from "./SearchBar";
 import Header from "../../component/header/Header";
 import CanvasContainer from "./Canvas/CanvasContainer";
@@ -10,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import EditMenu from "./EditMenu";
 import { savePosition } from "../../redux/actions/canvas";
 import PlayBox from "./PlayBox";
+import axios from "axios";
+const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 
 // import PlayBtns from "./Canvas/PlayBtns";
 
@@ -51,7 +52,20 @@ export default function Home() {
 
   const saveHandle = () => {
     localStorage.setItem('onNOff',onNOff)
-    setEdit(!edit)
+
+    const formData = new FormData();
+    formData.append("Authorization", localStorage.getItem("access-token"));
+    formData.append("elements", localStorage.getItem("onNOff"));
+
+    console.log(formData);
+
+    axios
+      .post(`${url}/api/save-room`,formData)
+      .then((res) => {      
+        setEdit(!edit)
+      }).catch((err)=>{
+        console.log(err);
+      })
   };
   return (
     <div>

@@ -14,7 +14,7 @@ const initialState = {
         "https://cdn.notefolio.net/img/8d/04/8d043e4b1d6d498da68b95255f79bdc35b2b5897da459cdc442fb94c5aec8738_v1.jpg",
       audio:
         "https://p.scdn.co/mp3-preview/95a1c576b938bd5c9a091654328fe2c66d6abd77?cid=9ebd371789ec4d41a6e4091dffeec2cb",
-      id: 1,
+      id: -1,
       category: null,
 
       elements: [
