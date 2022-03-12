@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Furniture Set
+* source:	https://sketchfab.com/3d-models/low-poly-furniture-set-b0460bf511fa4c659d57f4f6df0e65a9
+* author:	jfarstrider (https://sketchfab.com/jfarstrider)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Furniture Set" (https://sketchfab.com/3d-models/low-poly-furniture-set-b0460bf511fa4c659d57f4f6df0e65a9) by jfarstrider (https://sketchfab.com/jfarstrider) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

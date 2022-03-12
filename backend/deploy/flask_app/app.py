@@ -5,7 +5,7 @@ import json
 import os
 
 from module.mqopen import get_channel
-from config import SP_CID, SP_SECRETE, YOUTUBE_KEY1
+from config import SP_CID, SP_SECRETE, YOUTUBE_KEY1, YOUTUBE_KEY2
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -77,26 +77,34 @@ def oauth():
         #기존 플레이리스트 가져오기
         with sqlite3.connect(dbpath,check_same_thread=False) as conn :
             c = conn.cursor()
-            c.execute(f"select * from playlist where userid='{userid}';")
+            c.execute(f"select playlist from users where userid='{userid}';")
             listdata = c.fetchall()
             c.close()
+        listdata = listdata[0][0]
+        listdata = listdata.split('-')
         for x in listdata:
-            lyrics = x[3]
+            with sqlite3.connect(dbpath,check_same_thread=False) as conn :
+                c = conn.cursor()
+                c.execute(f"select * from music where musicid={x};")
+                musicdata = c.fetchall()
+                c.close()
+            musicdata = musicdata[0]
+            lyrics = musicdata[3]
             lyrics = lyrics.split('\n')
             musicInfo = {
-                    'musicid':x[0],
-                    'state' : x[5],
+                    'musicid':musicdata[0],
+                    'state' : musicdata[5],
                     'lyrics' : lyrics,
-                    'category' : x[4],
-                    'audio': x[6],
-                    'albumImage':x[7]
+                    'category' : musicdata[4],
+                    'audio': musicdata[6],
+                    'albumImage':musicdata[7]
                 }
             playlist.append(musicInfo)
     #신규회원이라면
     else:
         with sqlite3.connect(dbpath,check_same_thread=False) as conn :
             c = conn.cursor()
-            c.execute(f"insert into users values ('{userid}', '{access_token}');")
+            c.execute(f"insert into users (userid, token) values ('{userid}', '{access_token}');")
             conn.commit()
             c.close()
         
@@ -149,13 +157,7 @@ def add_music():
     dbmusician = musician.replace("'","''")
     albumImage = request.form['albumImage']
 
-    #audio youtube 링크 가져오기
-    url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&q={title}+{musician}5&key={YOUTUBE_KEY1}'
-    res = requests.get(url).json()
-    vid = res['items'][0]['id']['videoId']
-    vedio = "https://youtu.be/"+vid
-
-
+    
     # 제목과 가수로 db조회
     conn = sqlite3.connect("db.db")
     c = conn.cursor()
@@ -167,6 +169,7 @@ def add_music():
         state = dbdata[0][5]
         lyrics = dbdata[0][3]
         category = dbdata[0][4]
+        vedio = dbdata[0][6]
         c.close()
         lyriclist = lyrics.split('\n')
         musicInfo = {
@@ -181,6 +184,12 @@ def add_music():
             send_to_mq(musicid, title, musician, 'analysis',  'mqt01')
     # 신규음악의 경우
     else:
+        #audio youtube 링크 가져오기
+        url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&q={title}+{musician}5&key={YOUTUBE_KEY2}'
+        res = requests.get(url).json()
+        vid = res['items'][0]['id']['videoId']
+        vedio = "https://youtu.be/"+vid
+
         # 가사 가져오기
         url = 'http://3.36.251.36:5000/api/lyric'
         datas = {
@@ -212,12 +221,6 @@ def add_music():
         musicid = musicdata[0][0]
         c.close()
 
-        #playlist에 추가
-        c = conn.cursor()
-        c.execute(f"insert into playlist values ('{userid}' , {musicid}) ")
-        conn.commit()
-        c.close()
-
         # 분석위해 mq전송
         send_to_mq(musicid, title, musician, 'analysis',  'mqt01')
         musicInfo = {
@@ -227,6 +230,20 @@ def add_music():
             'category' : '',
             'audio' : vedio
         }
+    #playlist에 추가
+    c = conn.cursor()
+    c.execute(f"select playlist from users where userid='{userid}'; ")
+    oldlist = c.fetchall()
+    if len(oldlist) > 0:
+        oldlist = oldlist[0][0]
+    else:
+        oldlist = ""
+    oldlist+="-"+str(musicid)
+    c.close()
+    
+    c = conn.cursor()
+    c.execute(f"update users set playlist='{oldlist}' where userid='{userid}';")
+    conn.commit()
     conn.close()
 
     data = { 'musicInfo' : musicInfo }

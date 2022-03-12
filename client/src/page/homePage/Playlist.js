@@ -1,14 +1,11 @@
 import React, { useState,useEffect } from "react";
 import { styled } from "@linaria/react";
-import { AiFillCaretRight, AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setNowPlaying,
   deleteMusic,
   setCategory,
 } from "../../redux/actions/playlist";
-import axios from "axios";
-import { GrPowerCycle } from "react-icons/gr";
 import MusicCard from "./MusicCard";
 const MusicContainer = styled.ul`
   ::-webkit-scrollbar {

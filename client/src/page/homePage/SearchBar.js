@@ -136,13 +136,14 @@ const ResultList = ({ result }) => {
         .post(`${url}/api/add-music`, formData, {
           timeout: 10000,
           headers: { "Content-Type": "multipart/form-data" },
-        })
+        })        
         
         .then((res) => {
           music["lyrics"] = res.data.musicInfo.lyrics
           music["category"] = res.data.musicInfo.category
           music["id"] = res.data.musicInfo.musicid
           music["url"] = res.data.musicInfo.audio
+
           dispatch(addMusic(music));
         });
     } catch (e) {

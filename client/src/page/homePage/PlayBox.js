@@ -1,11 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import ReactPlayer from "react-player";
 
 export default function PlayBox({music}) {
   const [isShow, setIsShow] = useState(true);
+  const [curUrl, setCurUrl] = useState();
+  const [url, setUrl] = useState();
+
+  const { nowPlaying, state } = useSelector((state) => {
+    return {
+      nowPlaying: state.playlist.nowPlaying,
+      state: state
+    };
+  });
+
+  useEffect(() => {
+    let videoUrl = state.playlist.playlist[nowPlaying].url
+    
+    if (videoUrl !== undefined) {
+      videoUrl = videoUrl.replace(".", "");
+      videoUrl = videoUrl.substring(0,15) + ".com/embed" + videoUrl.substring(15);
+      setUrl(videoUrl)
+      console.log(url, videoUrl, isShow)
+      // document.getElementById("player").contentWindow.location.reload();
+    }
+  }, [url])
+  
+  const clickHandler = () => {
+    setIsShow(!isShow);
+    console.log(url, curUrl, isShow)
+  }
+  
   return (
     <div
+      id="player"
       style={{
         position: "absolute",
         bottom: 0,
@@ -17,9 +46,7 @@ export default function PlayBox({music}) {
     >
       <button
         className={"searchToggleBtn"}
-        onClick={() => {
-          setIsShow(!isShow);
-        }}
+        onClick={clickHandler}
         style={{
           backgroundColor: "rgba(50,50,50,0.5)",
           color:"white",
@@ -30,17 +57,27 @@ export default function PlayBox({music}) {
       >
         {isShow ? <AiFillCaretUp /> : <AiFillCaretDown />}
       </button>
-
       <ReactPlayer
         width={"100%"}
         height={isShow? "0":"100%"}
         url={
+          url
           // "https://www.youtube.com/watch?v=d96qZ_qeqJs&list=RDd96qZ_qeqJs&start_radio=1"
-          music.audio
+          // music.audio
         }
         playing = {false}
         controls={true}
       ></ReactPlayer>
+
+      {/* <iframe 
+      width={"100%"}
+      height={isShow? "0":"100%"}
+      src={url} 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+      </iframe> */}
     </div>
   );
 }

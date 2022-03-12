@@ -1,8 +1,8 @@
 import React, { Suspense, useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { OrbitControls, Stars } from "@react-three/drei";
 
 import { useDispatch, useSelector } from "react-redux";
 import { onOffElement, savePosition } from "../../../redux/actions/canvas";
@@ -12,7 +12,7 @@ import IsometricRoom from "./Isometric_room";
 import TV from './Elements/TV'
 import Room from "./Backgrounds/Room";
 
-
+// Why
 //backgrounds
 // import IsometricRoom2 from "./Backgrounds/IsometricRoom";
 import Beach from './Backgrounds/Beach'
@@ -27,6 +27,8 @@ import Otter from './Elements/Otter'
 
 export default function CanvasContainer({ edit }) {
   const dispatch = useDispatch();
+  const save_Position = (positions) => dispatch(savePosition(positions));
+  // Drag가 안되서 이용 못하는 중
 
   const [color, setColor] = useState();
   const [url, setUrl] = useState();
@@ -71,7 +73,7 @@ export default function CanvasContainer({ edit }) {
     else if (changeColor === "anger") {
       changeColor = "#D64959"
     }
-    else if (changeColor === "anticiaption") {
+    else if (changeColor === "anticipation") {
       changeColor = "#E89958"
     }
     else if (changeColor === "love") {
@@ -101,7 +103,7 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.1} />
+        <ambientLight intensity={0.03} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
@@ -114,8 +116,16 @@ export default function CanvasContainer({ edit }) {
           shadow-mapSize-height={2048}
           castShadow
         />
+        <rectAreaLight 
+          width={110}
+          height={10}
+          color={color} 
+          intensity={30}
+          position={[-88.8, 40, -32]} 
+          rotation={[0, -1.57, 0]}
+        />
         <pointLight
-          color="white"
+          color={color}
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
@@ -126,20 +136,13 @@ export default function CanvasContainer({ edit }) {
           <planeBufferGeometry attatch="geometry" />
           <meshLambertMaterial attatch="material" color="white" />
         </mesh>
-        <mesh position={[0,0,-100]} scale={1000} rotation={[0,0,0]}  receiveShadow>
-          <planeBufferGeometry attatch="geometry" />
-          <meshLambertMaterial attatch="material" color="white" />
-        </mesh>
-        <mesh position={[-100,0,0]} scale={1000} rotation={[0,Math.PI/2,0]}  receiveShadow>
-          <planeBufferGeometry attatch="geometry" />
-          <meshLambertMaterial attatch="material" color="white" />
-        </mesh>
+
+
         {/* Model들 */}
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
-          <Cinema castShadow/>
-          {/* <IsometricRoom url={url}/> */}
-          
+          {/* <Cinema castShadow/> */}
+          <IsometricRoom url={url}/>
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />

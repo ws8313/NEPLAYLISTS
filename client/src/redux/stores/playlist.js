@@ -34,7 +34,9 @@ function playlist(state = initialState, action) {
   switch (action.type) {
     case ADD_MUSIC:
       return { ...state, playlist: [...state.playlist, action.music] };
-
+// nowPlaying이 0일 경우 ?
+// nowPlaying이 0일 경우에는
+// 
     case DELETE_MUSIC:
       if (action.index == state.nowPlaying && state.nowPlaying == (state.playlist.length - 1) ) {
         state.playlist.splice(action.index, 1);
