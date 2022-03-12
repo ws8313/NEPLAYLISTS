@@ -1,0 +1,3 @@
+./backend/deploy/flask_app/config.py
+./backend/deploy/flask_app/templates
+./backend/deploy/flask_app/db.db
