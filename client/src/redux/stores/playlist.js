@@ -1,3 +1,4 @@
+import { act } from "@react-three/fiber";
 import { ADD_MUSIC, DELETE_MUSIC, SET_NOWPLAYING, SET_CATEGORY } from "../actions/playlist";
 
 const initialState = {
@@ -35,8 +36,14 @@ function playlist(state = initialState, action) {
       return { ...state, playlist: [...state.playlist, action.music] };
 
     case DELETE_MUSIC:
-      state.playlist.splice(action.index, 1);
-      return { ...state, playlist: [...state.playlist] };
+      if (action.index == state.nowPlaying && state.nowPlaying == (state.playlist.length - 1) ) {
+        state.playlist.splice(action.index, 1);
+        return { ...state, nowPlaying : ( state.nowPlaying - 1 ), playlist: [...state.playlist] };
+      }
+      else {
+        state.playlist.splice(action.index, 1);
+        return { ...state, playlist: [...state.playlist] };  
+      }
 
     case SET_NOWPLAYING:
       return {

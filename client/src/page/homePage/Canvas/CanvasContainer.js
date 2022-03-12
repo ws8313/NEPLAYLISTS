@@ -1,8 +1,8 @@
 import React, { Suspense, useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 import { useDispatch, useSelector } from "react-redux";
 import { onOffElement, savePosition } from "../../../redux/actions/canvas";
@@ -27,8 +27,6 @@ import Otter from './Elements/Otter'
 
 export default function CanvasContainer({ edit }) {
   const dispatch = useDispatch();
-  const save_Position = (positions) => dispatch(savePosition(positions));
-  // Drag가 안되서 이용 못하는 중
 
   const [color, setColor] = useState();
   const [url, setUrl] = useState();
@@ -103,7 +101,7 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.1} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
@@ -128,13 +126,20 @@ export default function CanvasContainer({ edit }) {
           <planeBufferGeometry attatch="geometry" />
           <meshLambertMaterial attatch="material" color="white" />
         </mesh>
-
-
+        <mesh position={[0,0,-100]} scale={1000} rotation={[0,0,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh>
+        <mesh position={[-100,0,0]} scale={1000} rotation={[0,Math.PI/2,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh>
         {/* Model들 */}
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
-          {/* <Cinema castShadow/> */}
-          <IsometricRoom url={url}/>
+          <Cinema castShadow/>
+          {/* <IsometricRoom url={url}/> */}
+          
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />
