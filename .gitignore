@@ -1,4 +1,5 @@
-./backend/deploy/flask_app/config.py
-./backend/deploy/flask_app/templates
-./backend/deploy/flask_app/db.db
-./backend/deploy/nginx/build
+backend/deploy/flask_app/config.py
+backend/deploy/flask_app/templates
+backend/deploy/flask_app/db.db
+backend/deploy/nginx/build
+backend/deploy/nginx/build.zip
