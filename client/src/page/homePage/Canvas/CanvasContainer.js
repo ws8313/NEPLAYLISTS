@@ -73,7 +73,7 @@ export default function CanvasContainer({ edit }) {
     else if (changeColor === "anger") {
       changeColor = "#D64959"
     }
-    else if (changeColor === "anticiaption") {
+    else if (changeColor === "anticipation") {
       changeColor = "#E89958"
     }
     else if (changeColor === "love") {
@@ -103,7 +103,7 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.03} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
@@ -116,8 +116,16 @@ export default function CanvasContainer({ edit }) {
           shadow-mapSize-height={2048}
           castShadow
         />
+        <rectAreaLight 
+          width={110}
+          height={10}
+          color={color} 
+          intensity={30}
+          position={[-88.8, 40, -32]} 
+          rotation={[0, -1.57, 0]}
+        />
         <pointLight
-          color="white"
+          color={color}
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
