@@ -95,7 +95,7 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={1} />
+        <ambientLight intensity={0.3} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
@@ -109,19 +109,11 @@ export default function CanvasContainer({ edit }) {
           castShadow
         />
         <pointLight
-          color={color}
+          color="white"
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
         /> 
-        <rectAreaLight
-          width={110}
-          height={10}
-          color={color}
-          intensity={30}
-          position={[-88.8, 40, -32]}
-          rotation={[0, -1.57, 0]}
-        />
 
         {/* 바닥 생성 */}
         <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
