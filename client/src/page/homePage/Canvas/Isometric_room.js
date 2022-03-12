@@ -9,12 +9,12 @@ title: Isometric bedroom
 import React, { useRef } from 'react'
 import { Html, useGLTF } from '@react-three/drei'
 
-export default function Model({ ...props }) {
+export default function Model( url ) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/scene.gltf')
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group}  dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group position={[0, 0, -6.03]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
@@ -152,7 +152,7 @@ export default function Model({ ...props }) {
               scale={[0.25, 1.1, 1]} 
               transform 
               >
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/gdZLi9oWNZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src={url.url} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </Html>
             </group>
             <group position={[-36.96, 32.25, -30.53]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 14.88]}>

@@ -25,24 +25,32 @@ import Cat from './Elements/Cat'
 import Llama from './Elements/Llama'
 import Otter from './Elements/Otter'
 
-
 export default function CanvasContainer({ edit }) {
   const dispatch = useDispatch();
   const save_Position = (positions) => dispatch(savePosition(positions));
   // Drag가 안되서 이용 못하는 중
 
   const [color, setColor] = useState();
+  const [url, setUrl] = useState();
 
-  const {idx, category} = useSelector((state) => {
+  const {idx, state} = useSelector((state) => {
     return {
       idx: state.playlist.nowPlaying,
-      category: state
+      state: state
     };
   });
-  console.log(category, idx)
+  console.log(state, idx)
 
   useEffect(() => {
-    let changeColor = category.playlist.playlist[idx].category
+    let videoUrl = state.playlist.playlist[idx].url
+    
+    if (videoUrl !== undefined) {
+      videoUrl = videoUrl.replace(".", "");
+      videoUrl = videoUrl.substring(0,15) + ".com/embed" + videoUrl.substring(15)
+    }
+    setUrl(videoUrl)
+
+    let changeColor = state.playlist.playlist[idx].category
 
     if (changeColor === "joy") {
       changeColor = "#FFE178"
@@ -75,8 +83,8 @@ export default function CanvasContainer({ edit }) {
       changeColor = "white"
     }
     setColor(changeColor)
-    console.log(color)
-  }, [category, idx])
+    console.log(color, url)
+  }, [state, idx, url])
 
   const { onNOff } = useSelector((state) => {
     return {
@@ -126,7 +134,7 @@ export default function CanvasContainer({ edit }) {
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
           {/* <Cinema castShadow/> */}
-          <IsometricRoom/>
+          <IsometricRoom url={url}/>
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />

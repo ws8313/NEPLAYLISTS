@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
     <h2>SNS로그인</h2>
     <ul>
         <li onclick="kakaoLogin();">
@@ -44,7 +45,7 @@
                             formData.append('authinfo',authinfo);
                             formData.append('userinfo',userinfo);
  
-                            let uri = 'http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com:3306/oauth'
+                            let uri = 'http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com/api/oauth'
                             axios.post(uri, formData, {
                                 headers: {
                                     "Content-Type": "multipart/form-data"
