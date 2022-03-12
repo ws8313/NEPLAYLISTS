@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
+import { networkService } from "./config/api"
 import reportWebVitals from './reportWebVitals';
 import store from './redux/configureStore';
 import {Provider} from 'react-redux'
+
+networkService.setupInterceptors()
 
 ReactDOM.render(
   <Provider store={store}>

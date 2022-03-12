@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>SNS로그인</h2>
+    <ul>
+        <li onclick="kakaoLogin();">
+        <!-- <li> -->
+          <a href="javascript:void(0)">
+              <span>카카오 로그인</span>
+          </a>
+        </li>
+        <li onclick="kakaoLogout();">
+          <a href="javascript:void(0)">
+              <span>카카오 로그아웃</span>
+          </a>
+        </li>
+    </ul>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        Kakao.init('1ae5b25dbdab5980875a7deef78b4e28');
+        console.log(Kakao.isInitialized());
+        function kakaoLogin() {
+            Kakao.Auth.login({
+                success: function (authObj) {
+                    Kakao.API.request({
+                        url: "/v2/user/me",
+                        success: function (userObj) {
+                            let logindata = {     
+                                'authinfo' : authObj,
+                                'userinfo' : userObj
+                            }
+                            console.log(logindata);
+                            
+                            var formData = new FormData();
+                            authinfo = JSON.stringify(authObj)
+                            userinfo = JSON.stringify(userObj)
+                            formData.append('authinfo',authinfo);
+                            formData.append('userinfo',userinfo);
+ 
+                            let uri = 'http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com:3306/oauth'
+                            axios.post(uri, formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                },
+                            })
+                            .then((response) => {
+                                console.log('res',response.data);
+
+                            })
+                            .catch((error) => {
+                                alert(error);
+                            })
+                        },
+                        fail: function (error) {
+                            console.log(error);
+                        }
+                    });
+                },
+                fail: function (err) {
+                    console.log('에러', err);
+                    alert('로그인실패!');
+                },
+            });
+        }
+        function kakaoLogout() {
+            // Kakao.init('1ae5b25dbdab5980875a7deef78b4e28');
+            if (!Kakao.Auth.getAccessToken()){
+                console.log("Not logged in");
+                return;
+            }
+            Kakao.Auth.logout(function() {
+                console.log(Kakao.Auth.getAccessToken());
+            })
+        }
+    </script>
+</body>
+</html>
