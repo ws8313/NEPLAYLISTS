@@ -15,18 +15,13 @@ export default function Model({onNOff,edit}) {
   const model = useLoader(GLTFLoader, "/Cat/scene.gltf");
 
   useEffect(() => {
-    // if (transform.current) {
-    //   const controls = transform.current
-    //   controls.setMode(mode)
-    //   const callback = event => (orbit.current.enabled = !event.value)
-    //   controls.addEventListener("dragging-changed", callback)
-    //   return () => controls.removeEventListener("dragging-changed", callback)
-    // }
+
   });
   return (
     <>
     {onNOff ? 
-      <TransformControls ref={transform} showZ={edit} showY={edit} showX={edit}>
+      <TransformControls ref={transform} showZ={edit} showY={edit} showX={edit}
+      rotation={[0, -Math.PI/2, 0]}>
       <primitive
           position={[0, 0, 0]}
           object={model.scene}

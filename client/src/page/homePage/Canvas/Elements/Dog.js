@@ -15,13 +15,7 @@ export default function Model({onNOff,edit}) {
   const model = useLoader(GLTFLoader, "/Dog/scene.gltf");
 
   useEffect(() => {
-    // if (transform.current) {
-    //   const controls = transform.current
-    //   controls.setMode(mode)
-    //   const callback = event => (orbit.current.enabled = !event.value)
-    //   controls.addEventListener("dragging-changed", callback)
-    //   return () => controls.removeEventListener("dragging-changed", callback)
-    // }
+  
   });
   return (
     <>
@@ -30,8 +24,8 @@ export default function Model({onNOff,edit}) {
       <primitive
           position={[0, -1, 0]}
           object={model.scene}
-          scale={10}
-          rotation={[0, -Math.PI, 0]}
+          scale={8}
+          rotation={[0, Math.PI/2, 0]}
         />
       </TransformControls> : <></>
       }

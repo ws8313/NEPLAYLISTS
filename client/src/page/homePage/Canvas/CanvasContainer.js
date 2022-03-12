@@ -12,7 +12,6 @@ import IsometricRoom from "./Isometric_room";
 import TV from './Elements/TV'
 import Room from "./Backgrounds/Room";
 
-// Why
 //backgrounds
 // import IsometricRoom2 from "./Backgrounds/IsometricRoom";
 import Beach from './Backgrounds/Beach'
@@ -24,6 +23,10 @@ import Dog from './Elements/Dog'
 import Cat from './Elements/Cat'
 import Llama from './Elements/Llama'
 import Otter from './Elements/Otter'
+import Billiard from './Elements/Billiard'
+import Bed from './Elements/Bed'
+import Couch from './Elements/Couch'
+
 
 export default function CanvasContainer({ edit }) {
   const dispatch = useDispatch();
@@ -103,14 +106,14 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.03} />
+        <ambientLight intensity={0.1} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
           position={[82.123, 106.57, -184.02]}
           intensity={0.3}
           angle={0.9}
-          color="red"
+          color="white"
           penumbra={1}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
@@ -134,19 +137,30 @@ export default function CanvasContainer({ edit }) {
         {/* 바닥 생성 */}
         <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
           <planeBufferGeometry attatch="geometry" />
-          <meshLambertMaterial attatch="material" color="white" />
+          <meshLambertMaterial attatch="material" color="yellow" />
         </mesh>
-
+        <mesh position={[0,0,-90]} scale={1000} rotation={[0,0,-Math.PI/2]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh> <mesh position={[-90,0,0]} scale={1000} rotation={[0,Math.PI/2,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="blue" />
+        </mesh>
 
         {/* Model들 */}
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
-          {/* <Cinema castShadow/> */}
+          {/* <Furniture edit={edit}/> */}          
           <IsometricRoom url={url}/>
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />
-          <Otter onNOff={onNOff[3]} edit={edit} />
+          <Couch onNOff={onNOff[4]} edit={edit} />
+          <Bed onNOff={onNOff[5]} edit={edit} />
+          <Billiard onNOff={onNOff[6]} edit={edit} />
+
+          {/* <Cinema castShadow/> */}
+
         </Suspense>
       </Canvas>
     </div>

@@ -22,3 +22,19 @@ export const tv = {
   img : "/ElementsImages/tv.PNG",
   name : "TV"
 }
+
+
+export const couch = {
+  img : "/ElementsImages/couch.PNG",
+  name : "Couch"
+}
+
+export const bed = {
+  img : "/ElementsImages/bed.PNG",
+  name : "Bed"
+}
+
+export const billiard = {
+  img : "/ElementsImages/billiard.PNG",
+  name : "Billiard"
+}

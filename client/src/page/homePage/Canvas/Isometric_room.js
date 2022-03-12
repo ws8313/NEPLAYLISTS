@@ -6,10 +6,31 @@ source: https://sketchfab.com/3d-models/isometric-bedroom-e5216b41fc4a4fb0a49ce7
 title: Isometric bedroom
 */
 // 우성
-import React, { useRef } from 'react'
+// import React, { useRef } from 'react'
 import { Html, useGLTF } from '@react-three/drei'
 
+import ReactDOM from "react-dom";
+import React, { Suspense, useEffect, useRef } from "react";
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Controls, useControl } from "react-three-gui";
+import { OrbitControls, TransformControls } from "@react-three/drei";
+
+// import React, { useRef } from 'react'
+// import { useGLTF } from "@react-three/drei";
 export default function Model( url ) {
+
+  const orbit = useRef();
+  const transform = useRef();
+  const mode = useControl("mode", {
+    type: "select",
+    items: ["rotate", "translate"],
+  });
+
+  useEffect(() => {
+   
+  });
+  
   const group = useRef()
   const { nodes, materials } = useGLTF('/scene.gltf')
 
@@ -18,13 +39,13 @@ export default function Model( url ) {
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group position={[0, 0, -6.03]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
-            <group position={[5, -0.7, 5]} rotation={[-Math.PI / 2, 0, 0]} scale={[95, 95, 3.73]}>
+            {/* <group position={[5, -0.7, 5]} rotation={[-Math.PI / 2, 0, 0]} scale={[95, 95, 3.73]}>
               <mesh
                 receiveShadow
                 geometry={nodes.Cube_Material_0.geometry}
                 material={nodes.Cube_Material_0.material}
               />
-            </group>
+            </group> */}
             <group position={[-78.74, 96.59, 46.69]} rotation={[-Math.PI / 2, 0, 0]} scale={[105.74, 105.74, 15.73]}>
               <mesh
                 castShadow
@@ -40,7 +61,7 @@ export default function Model( url ) {
                 material={nodes.Cube001_Material_0.material}
               />
             </group>
-            <group position={[-75, 0, -50]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 14.88]}>
+            {/* <group position={[-75, 0, -50]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 14.88]}>
               <mesh
               
                 // castShadow
@@ -55,8 +76,8 @@ export default function Model( url ) {
                 geometry={nodes.Cube002_Material002_0.geometry}
                 material={materials['Material.002']}
               />
-            </group>
-            <group position={[82.78, 9.3, -88.12]} rotation={[-1.37, 0, 0]} scale={[104.96, 111.7, 104.96]}>
+            </group> */}
+            {/* <group position={[82.78, 9.3, -88.12]} rotation={[-1.37, 0, 0]} scale={[104.96, 111.7, 104.96]}>
               <mesh
               
                 // castShadow
@@ -64,8 +85,6 @@ export default function Model( url ) {
                 geometry={nodes.Cube003_Material003_0.geometry}
                 material={nodes.Cube003_Material003_0.material}
               />
-              {/* <mesh
-              StandardMaterial attach="material" color="white" /> */}
             </group>
             <group position={[68.18, 18.6, 37.73]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
               <mesh
@@ -75,7 +94,7 @@ export default function Model( url ) {
                 geometry={nodes.Cube010_Material001_0.geometry}
                 material={nodes.Cube010_Material001_0.material}
               />
-            </group>
+            </group> */}
             <group position={[-77.2, 27.29, 62.55]} rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
               <mesh
               
@@ -92,7 +111,7 @@ export default function Model( url ) {
                 material={nodes.Cube014_Material001_0.material}
               />
             </group>
-            <group position={[53.16, 73.11, -95]} rotation={[-Math.PI / 2, 0, 0]} scale={[104.96, 111.7, 104.96]}>
+            {/* <group position={[53.16, 73.11, -95]} rotation={[-Math.PI / 2, 0, 0]} scale={[104.96, 111.7, 104.96]}>
               <mesh
               
                 // castShadow
@@ -100,7 +119,7 @@ export default function Model( url ) {
                 geometry={nodes.Cube019_Material003_0.geometry}
                 material={nodes.Cube019_Material003_0.material}
               />
-            </group>
+            </group> */}
             <group position={[-79.15, 47.13, -22.84]} rotation={[-Math.PI / 2, 0, -0.23]} scale={[100, 100, 100]}>
               <mesh
               
@@ -110,7 +129,7 @@ export default function Model( url ) {
                 material={nodes.Cube013_Material005_0.material}
               />
             </group>
-            <group position={[68.18, 34.7, 37.73]} rotation={[-Math.PI / 2, 0, 0]} scale={[94.67, 97.39, 100.52]}>
+            {/* <group position={[68.18, 34.7, 37.73]} rotation={[-Math.PI / 2, 0, 0]} scale={[94.67, 97.39, 100.52]}>
               <mesh
               
                 // castShadow
@@ -118,8 +137,8 @@ export default function Model( url ) {
                 geometry={nodes.Cube020_Material006_0.geometry}
                 material={nodes.Cube020_Material006_0.material}
               />
-            </group>
-            <group position={[54.12, 132.01, -95]} rotation={[-Math.PI / 2, 0, 0]} scale={[29.38, 1.22, 0.32]}>
+            </group> */}
+            {/* <group position={[54.12, 132.01, -95]} rotation={[-Math.PI / 2, 0, 0]} scale={[29.38, 1.22, 0.32]}>
               <mesh
               
                 castShadow
@@ -127,8 +146,8 @@ export default function Model( url ) {
                 geometry={nodes.Cube021_Material003_0.geometry}
                 material={nodes.Cube021_Material003_0.material}
               />
-            </group>
-            <group position={[82.78, 9.3, -88.12]} rotation={[-1.37, 0, 0]} scale={[104.96, 111.7, 104.96]}>
+            </group> */}
+            {/* <group position={[82.78, 9.3, -88.12]} rotation={[-1.37, 0, 0]} scale={[104.96, 111.7, 104.96]}>
               <mesh
               
                 // castShadow
@@ -136,7 +155,7 @@ export default function Model( url ) {
                 geometry={nodes.Cube022_Material007_0.geometry}
                 material={materials['Material.007']}
               />
-            </group>
+            </group> */}
             <group position={[-78.78, 66.74, -22.84]} rotation={[-Math.PI / 2, 0, -0.23]} scale={[1.07, 14.11, 3.18]}>
               <mesh
               
@@ -299,6 +318,7 @@ export default function Model( url ) {
                 material={nodes.Cone007__0.material}
               />
             </group>
+            {/* ///////////////////// */}
             <group position={[-79.81, 58.98, 80.64]} rotation={[1.02, -1.41, 2.16]} scale={[17.99, 17.99, 17.99]}>
               <mesh
               
