@@ -9,13 +9,11 @@ from collections import deque
 from pororo import Pororo
 import pandas as pd
 
-from config import LYRIC_ID
+
 queue_name = 'mqt01'
 connetion, channel = get_channel(queue_name)
 acceptable_count = 1
 
-import lyricsgenius
-genius = lyricsgenius.Genius(LYRIC_ID)
 
 emolist = ["Joy", "trust" ,"fear", "surprise", "sadness", "disgust", "anger", "anticipation"]
 zsl = Pororo(task="zero-topic")
@@ -43,36 +41,31 @@ def trans(data):
     print(f'## 작업시작 id:{task_id} ')
     
     try:
-        song = genius.search_song(title, musician)
-        tmp = song.lyrics.split('\n')
-        lyriclist = []
-        for x in tmp:
-            if '[' in x or ']' in x or x=='':
-                continue
-            else:
-                lyriclist.append(x)
-        lyricStr = '\n'.join(lyriclist)
         conn = sqlite3.connect("db.db")
         c=conn.cursor()
-        c.execute(f"UPDATE music SET lyrics='{lyricStr}',status={1} WHERE id ='{task_id}'")
-        conn.commit()
+        c.execute(f"select lyrics from music where musicid='{task_id}'")
+        dbdata = c.fetchall()
+        lyriclist = dbdata[0][0].split('\n')
         c.close()
         conn.close()
         print('get lyrics and update db')
         #가사분석
         print('start analysis')
+        lyriclist=pd.DataFrame(lyriclist)
+        # print(lyriclist)
         memo = []
         for i in lyriclist:
             for j in range(0, len(lyriclist)):
                 memo.append(zsl(lyriclist[i][j],emolist))
         memo = pd.DataFrame(memo)
-        b = pd.concat([lyriclist, memo],axis= 1)
-        bb = b.mean()
-        bmood = bb.idxmax()
+        emo = pd.concat([lyriclist, memo],axis= 1)
+        print(emo)
+        emomean = emo.mean()
+        mood = emomean.idxmax()
 
         conn = sqlite3.connect("db.db")
         c=conn.cursor()
-        c.execute(f"UPDATE music SET category='{bmood}',status={2} WHERE id ='{task_id}'")
+        c.execute(f"UPDATE music SET category='{mood}', state=2 WHERE id ='{task_id}'")
         conn.commit()
         c.close()
         conn.close()
@@ -94,7 +87,7 @@ async def doWork(data):
         print(f'##### id:{task_id} canceled ######')
         conn = sqlite3.connect("db.db")
         c=conn.cursor()
-        c.execute("UPDATE music SET status={} WHERE id ='{}'".format(3,task_id))
+        c.execute(f"UPDATE music SET state=3 WHERE id ='{task_id}'")
         conn.commit()
         c.close()
         conn.close()
@@ -132,7 +125,7 @@ async def check():
                 print('work_type error')
                 pass
             channel.basic_ack(method_frame.delivery_tag)
-        if idx > 60:
+        if idx > 180:
             print('분석작업 대기중',waiting_tasks)
             idx = 0
         len_working = len(working_tasks)
