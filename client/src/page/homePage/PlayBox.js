@@ -19,8 +19,6 @@ export default function PlayBox({music}) {
         className={"searchToggleBtn"}
         onClick={() => {
           setIsShow(!isShow);
-          console.log(isShow);
-
         }}
         style={{
           backgroundColor: "rgba(50,50,50,0.5)",
@@ -37,8 +35,8 @@ export default function PlayBox({music}) {
         width={"100%"}
         height={isShow? "0":"100%"}
         url={
-          "https://www.youtube.com/watch?v=d96qZ_qeqJs&list=RDd96qZ_qeqJs&start_radio=1"
-          // music.audio
+          // "https://www.youtube.com/watch?v=d96qZ_qeqJs&list=RDd96qZ_qeqJs&start_radio=1"
+          music.audio
         }
         playing = {false}
         controls={true}

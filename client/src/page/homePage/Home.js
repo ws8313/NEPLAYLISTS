@@ -36,7 +36,6 @@ font-size:30px;
 export default function Home() {
   const [edit, setEdit] = useState(false);
   const { playlist, nowPlaying,onNOff } = useSelector((state) => {
-    console.log("state", state);
     return {
       playlist: state.playlist.playlist,
       nowPlaying: state.playlist.nowPlaying,
@@ -48,7 +47,6 @@ export default function Home() {
 
 
   const dispatch = useDispatch();
-  // const save_Position = (positions) => dispatch(savePosition(positions));
 
   const saveHandle = () => {
     localStorage.setItem('onNOff',onNOff)
@@ -57,7 +55,6 @@ export default function Home() {
     formData.append("Authorization", localStorage.getItem("access-token"));
     formData.append("elements", localStorage.getItem("onNOff"));
 
-    console.log(formData);
 
     axios
       .post(`${url}/api/save-room`,formData)
@@ -73,7 +70,6 @@ export default function Home() {
       <CanvasContainer edit={edit} />
       {edit ? (
         <EditMenu />
-        
       ) : (
         <>
           <SearchBar />
