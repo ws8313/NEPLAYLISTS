@@ -3,20 +3,22 @@ import styled from "styled-components";
 
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
-// import MagicRoom from "./Elements/MagicRoom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { onOffElement, savePosition } from "../../../redux/actions/canvas";
+import { Controls, useControl } from "react-three-gui"
 
 import IsometricRoom from "./Isometric_room";
-// import SpiderMan from "./Elements/SpiderMan";
-// import ManSitting from "./Elements/ManSitting";
 import TV from './Elements/TV'
+import Room from "./Backgrounds/Room";
+
 
 //backgrounds
-import IsometricRoom2 from "./Backgrounds/IsometricRoom";
+// import IsometricRoom2 from "./Backgrounds/IsometricRoom";
+import Beach from './Backgrounds/Beach'
 import Cinema from './Backgrounds/Cinema'
-import HomeCinema from './Backgrounds/HomeCinema'
-import MagicRoom from './Backgrounds/MagicRoom'
+import Park from './Backgrounds/Park'
+
 //Elements
 import Dog from './Elements/Dog'
 import Cat from './Elements/Cat'
@@ -38,54 +40,47 @@ export default function CanvasContainer({ edit }) {
   return (
     <div style={{ height: "100vh" }}>
       <Canvas camera={{ fov: 45, position: [300, 300, 300] }} shadows>
-        <color attach="background" args={["white"]} />
+        <color attach="background" args={["black"]} />
         <OrbitControls
-          // minPolarAngle={edit ? Math.PI / 4 : -Math.PI/2}
-          // maxPolarAngle={edit ?  Math.PI / 4 : Math.PI/2}        
-          // minAzimuthAngle={edit ? Math.PI / 4 : 0}
+          minPolarAngle={edit ? Math.PI / 4 : -Math.PI/2}
+          maxPolarAngle={edit ?  Math.PI / 4 : Math.PI/2}        
+          minAzimuthAngle={edit ? Math.PI / 4 : 0}
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.3} />
-        {/* <pointLight color="white" intensity = {0.1}  />
-        <spotLight position={[20, 70, -150]} angle={1} color="white" penumbra={1} castShadow /> */}
+        <ambientLight intensity={1} />
+        <pointLight color="white" intensity = {0.1}  />
+        {/* <spotLight position={[20, 70, -150]} angle={1} color="white" penumbra={1} castShadow /> */}
 
         <spotLight
           position={[82.123, 106.57, -184.02]}
           intensity={0.3}
           angle={0.9}
-          color="white"
+          color="red"
           penumbra={1}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
           castShadow
         />
-
-        {/* <pointLight
-          color="#0000FF"
+        <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh>
+         <pointLight
+          color="white"
           intensity={0.4}
           position={[-70, 100, -23]}
-        />
-        <rectAreaLight
-          width={110}
-          height={10}
-          color="#0000FF"
-          intensity={30}
-          position={[-88.8, 40, -32]}
-          rotation={[0, -1.57, 0]}
-        /> */}
+          castShadow={true}
+        /> 
         <Suspense fallback={null}>
+
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
-          {/* <Cinema /> */}
-          
-          {/* <IsometricRoom2 /> */}
-          {/* <HomeCinema /> */}
+          {/* <Cinema castShadow/> */}
           {/* <IsometricRoom/> */}
-          {/* <MagicRoom /> */}
-          {onNOff[0] ? <Dog/> : <></>}
-          {onNOff[1] ? <Cat /> : <></>}
-          {onNOff[2] ? <Llama /> : <></>}
-          {onNOff[3] ? <Otter /> : <></>}
+          <Dog onNOff={onNOff[0]} edit={edit} />
+          <Cat onNOff={onNOff[1]} edit={edit} />
+          <Llama onNOff={onNOff[2]} edit={edit} />
+          <Otter onNOff={onNOff[3]} edit={edit} />
         </Suspense>
       </Canvas>
     </div>
