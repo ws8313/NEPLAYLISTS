@@ -109,11 +109,19 @@ export default function CanvasContainer({ edit }) {
           castShadow
         />
         <pointLight
-          color="white"
+          color={color}
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
         /> 
+        <rectAreaLight
+          width={110}
+          height={10}
+          color={color}
+          intensity={30}
+          position={[-88.8, 40, -32]}
+          rotation={[0, -1.57, 0]}
+        />
 
         {/* 바닥 생성 */}
         <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
@@ -126,7 +134,7 @@ export default function CanvasContainer({ edit }) {
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
           {/* <Cinema castShadow/> */}
-          {/* <IsometricRoom/> */}
+          <IsometricRoom/>
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />
