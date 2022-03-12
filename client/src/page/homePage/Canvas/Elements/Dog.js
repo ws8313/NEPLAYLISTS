@@ -28,10 +28,10 @@ export default function Model({onNOff,edit}) {
     {onNOff ? 
       <TransformControls ref={transform} showZ={edit} showY={edit} showX={edit}>
       <primitive
-          position={[0, 0, 0]}
+          position={[0, -1, 0]}
           object={model.scene}
-          scale={1}
-          rotation={[0, 0, 0]}
+          scale={10}
+          rotation={[0, -Math.PI, 0]}
         />
       </TransformControls> : <></>
       }

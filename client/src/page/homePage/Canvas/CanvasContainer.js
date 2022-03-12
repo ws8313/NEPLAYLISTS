@@ -12,7 +12,7 @@ import IsometricRoom from "./Isometric_room";
 import TV from './Elements/TV'
 import Room from "./Backgrounds/Room";
 
-
+// Why
 //backgrounds
 // import IsometricRoom2 from "./Backgrounds/IsometricRoom";
 import Beach from './Backgrounds/Beach'

@@ -20,8 +20,6 @@ export default function Model( url ) {
           <group rotation={[Math.PI / 2, 0, 0]}>
             <group position={[5, -0.7, 5]} rotation={[-Math.PI / 2, 0, 0]} scale={[95, 95, 3.73]}>
               <mesh
-              
-                // castShadow
                 receiveShadow
                 geometry={nodes.Cube_Material_0.geometry}
                 material={nodes.Cube_Material_0.material}
