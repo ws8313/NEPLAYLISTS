@@ -50,7 +50,6 @@ export default function CanvasContainer({ edit }) {
         {/* light 들 적용시킬 것 */}
         <ambientLight intensity={1} />
         <pointLight color="white" intensity = {0.1}  />
-        {/* <spotLight position={[20, 70, -150]} angle={1} color="white" penumbra={1} castShadow /> */}
 
         <spotLight
           position={[82.123, 106.57, -184.02]}
@@ -62,18 +61,22 @@ export default function CanvasContainer({ edit }) {
           shadow-mapSize-height={2048}
           castShadow
         />
-        <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
-          <planeBufferGeometry attatch="geometry" />
-          <meshLambertMaterial attatch="material" color="white" />
-        </mesh>
          <pointLight
           color="white"
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
         /> 
-        <Suspense fallback={null}>
 
+        {/* 바닥 생성 */}
+        <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh>
+
+
+        {/* Model들 */}
+        <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
           {/* <Cinema castShadow/> */}
           {/* <IsometricRoom/> */}
