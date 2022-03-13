@@ -21,7 +21,8 @@ export default function Model({onNOff,edit}) {
     <>
     {onNOff ? 
       <TransformControls ref={transform} showZ={edit} showY={edit} showX={edit}
-      rotation={[0, -Math.PI/2, 0]}>
+      rotation={[0, 0, 0]}>
+      {/* rotation={[0, -Math.PI/2, 0]}> */}
       <primitive
           position={[0, 0, 0]}
           object={model.scene}
