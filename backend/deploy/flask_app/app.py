@@ -256,9 +256,11 @@ def add_music():
 def analysis(idx):
     conn = sqlite3.connect("db.db")	
     c = conn.cursor()
-    c.execute(f"select state from music where musicid='{idx}'")
+    c.execute(f"select state, category from music where musicid='{idx}'")
     dbdata = c.fetchall()
     data = {'state' : dbdata[0][0] }
+    if dbdata[0][0] == 2:
+        data['category'] = dbdata[0][1]
     api_res = jsonify(data)
     api_res.headers['Access-Control-Allow-Origin'] = '*'
     return api_res

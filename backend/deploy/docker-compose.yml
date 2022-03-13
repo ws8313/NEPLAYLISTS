@@ -6,18 +6,18 @@ services:
     restart: always
     build: ./flask_app
     volumes: 
-      - /home/team03/neplis2/backend/deploy/flask_app:/usr/src/flask_app
+      - /home/team03/neplis/backend/deploy/flask_app:/usr/src/flask_app
     ports:
       - "8000:8000"
-    command: gunicorn -w 1 -b 0.0.0.0:8000 wsgi:server
+    command: gunicorn -b 0.0.0.0:8000 wsgi:server
 
   nginx:
     container_name: nginx
     restart: always
     build: ./nginx
     volumes: 
-      - /home/team03/neplis2/backend/deploy/flask_app/static:/static
-      - /home/team03/neplis2/backend/deploy/nginx/build:/build
+      - /home/team03/neplis/backend/deploy/flask_app/static:/static
+      - /home/team03/neplis/backend/deploy/nginx/build:/build
     ports:
       - "80:80"
     depends_on:
