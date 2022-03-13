@@ -5,13 +5,13 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { onOffElement, savePosition } from "../../../redux/actions/canvas";
 import { Controls, useControl } from "react-three-gui"
 
 import IsometricRoom from "./Isometric_room";
 import TV from './Elements/TV'
 import Room from "./Backgrounds/Room";
-
 
 //backgrounds
 // import IsometricRoom2 from "./Backgrounds/IsometricRoom";
@@ -24,6 +24,11 @@ import Dog from './Elements/Dog'
 import Cat from './Elements/Cat'
 import Llama from './Elements/Llama'
 import Otter from './Elements/Otter'
+import Billiard from './Elements/Billiard'
+import Bed from './Elements/Bed'
+import Couch from './Elements/Couch'
+// import { setPlaylist } from "../../../redux/actions/playlist";
+// const set_Playlist = (playlist) => dispatch(setPlaylist(playlist));
 
 
 export default function CanvasContainer({ edit }) {
@@ -32,17 +37,26 @@ export default function CanvasContainer({ edit }) {
   // Drag가 안되서 이용 못하는 중
 
   const [color, setColor] = useState();
+  const [url, setUrl] = useState();
 
-  const {idx, category} = useSelector((state) => {
+  const {idx, state} = useSelector((state) => {
     return {
       idx: state.playlist.nowPlaying,
-      category: state
+      state: state
     };
   });
-  console.log(category, idx)
+  console.log(state, idx)
 
   useEffect(() => {
-    let changeColor = category.playlist.playlist[idx].category
+    let videoUrl = state.playlist.playlist[idx].url
+    
+    if (videoUrl !== undefined) {
+      videoUrl = videoUrl.replace(".", "");
+      videoUrl = videoUrl.substring(0,15) + ".com/embed" + videoUrl.substring(15)
+    }
+    setUrl(videoUrl)
+
+    let changeColor = state.playlist.playlist[idx].category
 
     if (changeColor === "joy") {
       changeColor = "#FFE178"
@@ -65,7 +79,7 @@ export default function CanvasContainer({ edit }) {
     else if (changeColor === "anger") {
       changeColor = "#D64959"
     }
-    else if (changeColor === "anticiaption") {
+    else if (changeColor === "anticipation") {
       changeColor = "#E89958"
     }
     else if (changeColor === "love") {
@@ -75,8 +89,8 @@ export default function CanvasContainer({ edit }) {
       changeColor = "white"
     }
     setColor(changeColor)
-    console.log(color)
-  }, [category, idx])
+    console.log(color, url)
+  }, [state, idx, url])
 
   const { onNOff } = useSelector((state) => {
     return {
@@ -95,21 +109,29 @@ export default function CanvasContainer({ edit }) {
           maxAzimuthAngle={edit ? Math.PI / 4 : Math.PI / 2}
         />
         {/* light 들 적용시킬 것 */}
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.1} />
         <pointLight color="white" intensity = {0.1}  />
 
         <spotLight
           position={[82.123, 106.57, -184.02]}
           intensity={0.3}
           angle={0.9}
-          color="red"
+          color="white"
           penumbra={1}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
           castShadow
         />
+        <rectAreaLight 
+          width={110}
+          height={10}
+          color={color} 
+          intensity={30}
+          position={[-88.8, 40, -32]} 
+          rotation={[0, -1.57, 0]}
+        />
         <pointLight
-          color="white"
+          color={color}
           intensity={0.4}
           position={[-70, 100, -23]}
           castShadow={true}
@@ -118,19 +140,30 @@ export default function CanvasContainer({ edit }) {
         {/* 바닥 생성 */}
         <mesh position={[0,0,0]} scale={1000} rotation={[-Math.PI/2,0,0]}  receiveShadow>
           <planeBufferGeometry attatch="geometry" />
-          <meshLambertMaterial attatch="material" color="white" />
+          <meshLambertMaterial attatch="material" color="yellow" />
         </mesh>
-
+        <mesh position={[0,0,-90]} scale={1000} rotation={[0,0,-Math.PI/2]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="white" />
+        </mesh> <mesh position={[-90,0,0]} scale={1000} rotation={[0,Math.PI/2,0]}  receiveShadow>
+          <planeBufferGeometry attatch="geometry" />
+          <meshLambertMaterial attatch="material" color="blue" />
+        </mesh>
 
         {/* Model들 */}
         <Suspense fallback={null}>
           {/* 기본 방 + 버튼 클릭에 따른 Element들 */}
-          {/* <Cinema castShadow/> */}
-          <IsometricRoom/>
+          {/* <Furniture edit={edit}/> */}          
+          <IsometricRoom url={url}/>
           <Dog onNOff={onNOff[0]} edit={edit} />
           <Cat onNOff={onNOff[1]} edit={edit} />
           <Llama onNOff={onNOff[2]} edit={edit} />
-          <Otter onNOff={onNOff[3]} edit={edit} />
+          <Couch onNOff={onNOff[4]} edit={edit} />
+          <Bed onNOff={onNOff[5]} edit={edit} />
+          <TV onNOff={onNOff[6]} edit={edit} />
+
+          {/* <Cinema castShadow/> */}
+
         </Suspense>
       </Canvas>
     </div>

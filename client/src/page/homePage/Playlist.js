@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { styled } from "@linaria/react";
-import { AiFillCaretRight, AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   setNowPlaying,
   deleteMusic,
   setCategory,
 } from "../../redux/actions/playlist";
-import axios from "axios";
-import { GrPowerCycle } from "react-icons/gr";
-
+import MusicCard from "./MusicCard";
 const MusicContainer = styled.ul`
   ::-webkit-scrollbar {
     width: 5.2px;
@@ -83,7 +79,7 @@ const MusicContainer = styled.ul`
       font-size: xx-large;
       path {
         stroke: rgba(150, 150, 150, 1);
-        margin : auto;
+        margin: auto;
       }
       * {
         margin: auto;
@@ -92,63 +88,8 @@ const MusicContainer = styled.ul`
   }
 `;
 
-const url =
-  "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
+const url = "http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com"; //http 없으면 404 error
 
-const MusicCard = ({
-  music,
-  idx,
-  delete_Music,
-  set_NowPlaying,
-  set_Category,
-}) => {
-  const handleDelete = (idx) => {
-    const deleteConfirm = window.confirm(
-      "정말로 플레이리스트에서 삭제하시겠습니까? 삭제 시 편집한 해당 곡의 Room 정보는 초기화 됩니다."
-    );
-    if (deleteConfirm) {
-      delete_Music(idx);
-    }
-  };
-
-  const [isAnalyzed, setIsAnalyzed] = useState(false);
-
-  // const analyzeLyrics = setInterval(function () {
-  //   axios
-  //     .get(`${url}:3306/api/analysis/${music.id}`, { timeout: 10000 })
-  //     .then((res) => {
-  //       // if (res.data.state) {
-  //         // 플레이리스트에 카테고리 넣는 dispatch
-  //         // set_Category(idx, res.data.category);
-
-  //         setIsAnalyzed(true);
-  //         clearInterval(analyzeLyrics);
-  //       // }
-  //     }, 5000);
-  // });
-
-  return (
-    <li>
-      <img src={music.albumImage} />
-      <div>
-        <h3>{music.title}</h3>
-        {music.musician}
-      </div>
-      {isAnalyzed ? (
-        <button onClick={() => set_NowPlaying(idx)}>
-          <AiFillCaretRight />
-        </button>
-      ) : (
-        <button disabled>
-          <GrPowerCycle color="white" />
-        </button>
-      )}
-      <button onClick={() => handleDelete(idx)}>
-        <AiOutlineClose />
-      </button>
-    </li>
-  );
-};
 
 export default function Playlist() {
   const dispatch = useDispatch();

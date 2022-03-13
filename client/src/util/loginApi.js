@@ -23,7 +23,7 @@ export function kakaoLogin() {
                     formData.append('authinfo',authinfo);
                     formData.append('userinfo',userinfo);
 
-                    let uri = 'http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com:3306/api/oauth'
+                    let uri = 'http://elice-kdt-ai-3rd-team03.koreacentral.cloudapp.azure.com/api/oauth'
                     axios.post(uri, formData, {
                         headers: {
                             "Content-Type": "multipart/form-data"

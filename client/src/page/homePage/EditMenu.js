@@ -2,7 +2,7 @@ import { styled } from "@linaria/react";
 import React, { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { onOffElement, savePosition } from "../../redux/actions/canvas";
-import { llama, otter,cat, dog, tv } from "./Canvas/Elements/Elements";
+import { llama, otter,cat, dog, tv, bed,billiard,couch} from "./Canvas/Elements/Elements";
 
 const ItemEditorContainer = styled.div`
   position: absolute;
@@ -79,17 +79,14 @@ export default function EditMenu() {
 
   const onNOffSwitch = (index)=>{
     on_Off_Element(index)
-    console.log(1);
   }
 
   const ElementBox = ({ element, index }) => {
     // onNOff[index] 
     // const imgSrc = require(element.img)
     // import img from element.img;
-    console.log(1);
     const onNOffSwitch = (index)=>{
       on_Off_Element(index)
-      console.log(1);
     }
     
     return (
@@ -110,7 +107,11 @@ export default function EditMenu() {
         <ElementBox index="1" element={cat}></ElementBox>
         <ElementBox index="2" element={llama}></ElementBox>
         <ElementBox index="3" element={otter}></ElementBox>
-        <ElementBox index="4" element={tv}></ElementBox>
+        <ElementBox index="4" element={couch}></ElementBox>
+        <ElementBox index="5" element={bed}></ElementBox>
+        <ElementBox index="7" element={billiard}></ElementBox>
+        <ElementBox index="6" element={tv}></ElementBox>
+
       </div>
     </ItemEditorContainer>
   );

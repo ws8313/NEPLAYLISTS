@@ -24,7 +24,7 @@ export default function Model({onNOff,edit}) {
         <primitive
           position={[0, 0, 0]}
           object={model.scene}
-          scale={10}
+          scale={100}
           rotation={[0, 0, 0]}
         />
       </TransformControls> : <></>
