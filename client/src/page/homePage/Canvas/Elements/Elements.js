@@ -9,12 +9,12 @@ export const dog = {
 }
 
 export const otter = {
-  img : "/ElementsImages/otter.PNG",
+  img : "/ElementsImages/Otter.PNG",
   name : "Otter"
 }
 
 export const llama = {
-  img : "/ElementsImages/llama.PNG",
+  img : "/ElementsImages/Llama.PNG",
   name : "Llama"
 }
 
@@ -25,16 +25,16 @@ export const tv = {
 
 
 export const couch = {
-  img : "/ElementsImages/couch.PNG",
+  img : "/ElementsImages/Couch.PNG",
   name : "Couch"
 }
 
 export const bed = {
-  img : "/ElementsImages/bed.PNG",
+  img : "/ElementsImages/Bed.PNG",
   name : "Bed"
 }
 
 export const billiard = {
-  img : "/ElementsImages/billiard.PNG",
+  img : "/ElementsImages/Billiard.PNG",
   name : "Billiard"
 }

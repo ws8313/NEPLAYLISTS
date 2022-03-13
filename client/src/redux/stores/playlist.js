@@ -1,5 +1,5 @@
 import { act } from "@react-three/fiber";
-import { ADD_MUSIC, DELETE_MUSIC, SET_NOWPLAYING, SET_CATEGORY } from "../actions/playlist";
+import { ADD_MUSIC, DELETE_MUSIC, SET_NOWPLAYING, SET_CATEGORY, SET_PLAYLIST } from "../actions/playlist";
 
 const initialState = {
   user: "test", // 따로 스토어
@@ -32,11 +32,15 @@ const initialState = {
 // Reducer
 function playlist(state = initialState, action) {
   switch (action.type) {
+    case SET_PLAYLIST:
+      return { ...state, playlist: [ action.playlist ] };
+
     case ADD_MUSIC:
       return { ...state, playlist: [...state.playlist, action.music] };
 // nowPlaying이 0일 경우 ?
 // nowPlaying이 0일 경우에는
 // 
+
     case DELETE_MUSIC:
       if (action.index == state.nowPlaying && state.nowPlaying == (state.playlist.length - 1) ) {
         state.playlist.splice(action.index, 1);

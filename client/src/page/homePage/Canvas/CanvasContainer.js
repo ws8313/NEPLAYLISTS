@@ -5,6 +5,7 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { onOffElement, savePosition } from "../../../redux/actions/canvas";
 import { Controls, useControl } from "react-three-gui"
 
@@ -26,6 +27,8 @@ import Otter from './Elements/Otter'
 import Billiard from './Elements/Billiard'
 import Bed from './Elements/Bed'
 import Couch from './Elements/Couch'
+// import { setPlaylist } from "../../../redux/actions/playlist";
+// const set_Playlist = (playlist) => dispatch(setPlaylist(playlist));
 
 
 export default function CanvasContainer({ edit }) {
