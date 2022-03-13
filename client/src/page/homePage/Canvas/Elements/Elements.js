@@ -19,7 +19,7 @@ export const llama = {
 }
 
 export const tv = {
-  img : "/ElementsImages/tv.PNG",
+  img : "/ElementsImages/TV.PNG",
   name : "TV"
 }
 

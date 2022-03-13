@@ -30,7 +30,7 @@ export default function Header({isLogined,setIsLogined}) {
   }
   return (
     <div style={{  zIndex:1, width: "100%",position : "absolute" , backgroundColor: "gray" }}>
-      <Link to="/" style={{width:"25vw", textAlign:"center"}}><img src={logo} style={{ height : "30px",padding:' 0'}}></img></Link>
+      <Link to="/" style={{width:"25vw", textAlign:"center"}}><img src={logo} style={{ height : "0",padding:' 0'}}></img></Link>
       <NavBtn onClick={handleLogin}> {isLogined? "카카오로 로그인" : "로그아웃"}</NavBtn>      
     </div>
   )

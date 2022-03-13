@@ -157,7 +157,7 @@ export default function CanvasContainer({ edit }) {
           <Llama onNOff={onNOff[2]} edit={edit} />
           <Couch onNOff={onNOff[4]} edit={edit} />
           <Bed onNOff={onNOff[5]} edit={edit} />
-          <Billiard onNOff={onNOff[6]} edit={edit} />
+          <TV onNOff={onNOff[6]} edit={edit} />
 
           {/* <Cinema castShadow/> */}
 

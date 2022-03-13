@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Controls, useControl } from "react-three-gui";
 import { OrbitControls, TransformControls } from "@react-three/drei";
 
-export default function Model() {
+export default function Model({ edit, onNOff }) {
   const orbit = useRef();
   const transform = useRef();
   const mode = useControl("mode", {
@@ -25,14 +25,23 @@ export default function Model() {
   });
   return (
     <>
-      <TransformControls ref={transform}>
-        <primitive
-          position={[0, 0, 0]}
-          object={model.scene}
-          scale={10}
-          rotation={[0, 0, 0]}
-        />
-      </TransformControls>
+      {onNOff ? (
+        <TransformControls
+          ref={transform}
+          showZ={edit}
+          showY={edit}
+          showX={edit}
+        >
+          <primitive 
+            position={[0, 0, 0]}
+            object={model.scene}
+            scale={100}
+            rotation={[0, Math.PI/2, 0]}
+          />
+        </TransformControls>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

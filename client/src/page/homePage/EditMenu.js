@@ -109,8 +109,8 @@ export default function EditMenu() {
         <ElementBox index="3" element={otter}></ElementBox>
         <ElementBox index="4" element={couch}></ElementBox>
         <ElementBox index="5" element={bed}></ElementBox>
-        <ElementBox index="6" element={billiard}></ElementBox>
-        <ElementBox index="1" element={tv}></ElementBox>
+        <ElementBox index="7" element={billiard}></ElementBox>
+        <ElementBox index="6" element={tv}></ElementBox>
 
       </div>
     </ItemEditorContainer>
